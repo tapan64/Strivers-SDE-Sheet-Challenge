@@ -1,0 +1,6 @@
+def maximumProfit(prices):
+    maxProfit, minBuy = 0, prices[0]
+    for price in prices:
+        minBuy = min(minBuy, price)
+        maxProfit = max(maxProfit, price - minBuy)
+    return maxProfit
