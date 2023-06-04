@@ -1,0 +1,15 @@
+def sortTwoLists(first, second):
+    head = cur = Node(-1)
+    while first and second:
+        if first.data < second.data:
+            cur.next = first
+            first = first.next
+        else:
+            cur.next = second
+            second = second.next
+        cur = cur.next
+    if first:
+        cur.next = first
+    if second:
+        cur.next = second
+    return head.next
