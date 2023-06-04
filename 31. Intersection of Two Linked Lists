@@ -1,0 +1,8 @@
+def findIntersection(firstHead, secondHead) :
+    cur1, cur2 = firstHead, secondHead
+    while cur1 != cur2:
+        cur1 = cur1.next if cur1 else secondHead
+        cur2 = cur2.next if cur2 else firstHead
+    if cur1:
+        return cur1.data
+    return -1
