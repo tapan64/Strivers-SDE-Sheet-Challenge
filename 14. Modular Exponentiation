@@ -1,0 +1,9 @@
+def modularExponentiation(x, n, m):
+	mul = 1
+	x = x % m
+	while n:
+		if n % 2:
+			mul = (mul * x) % m
+		n //= 2
+		x = (x * x) % m
+	return mul
