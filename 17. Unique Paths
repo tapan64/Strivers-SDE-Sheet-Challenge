@@ -17,6 +17,38 @@
 # 	return dfs(m - 1, n - 1, dp)
 
 
+# Tabulation
+
+# def uniquePaths(m, n):
+# 	dp = [[0 for j in range(n)] for i in range(m)]
+# 	for i in range(m):
+# 		for j in range(n):
+# 			if i == 0 and j == 0:
+# 				dp[i][j] = 1
+# 				continue
+# 			top = dp[i - 1][j] if i > 0 else 0
+# 			left = dp[i][j - 1] if j > 0 else 0
+# 			dp[i][j] = top + left
+# 	return dp[m - 1][n - 1]
+
+
+# Space Optimization
+
+# def uniquePaths(m, n):
+# 	prev = [0] * n
+# 	for i in range(m):
+# 		cur = [0] * n
+# 		for j in range(n):
+# 			if i == 0 and j == 0:
+# 				cur[j] = 1
+# 				continue
+# 			top = prev[j] if i > 0 else 0
+# 			left = cur[j - 1] if j > 0 else 0
+# 			cur[j] = top + left
+# 		prev = cur
+# 	return prev[n - 1]
+
+
 # using combinations
 
 def uniquePaths(m, n):
