@@ -1,0 +1,15 @@
+def addTwoNumbers(head1: Node, head2: Node) -> Node:
+    res = cur = Node()
+    extra = 0
+    while head1 or head2 or extra:
+        sm = extra
+        if head1:
+            sm += head1.data
+            head1 = head1.next
+        if head2:
+            sm += head2.data
+            head2 = head2.next
+        extra = sm // 10
+        cur.next = Node(sm % 10)
+        cur = cur.next
+    return res.next
