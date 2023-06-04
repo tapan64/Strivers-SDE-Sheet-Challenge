@@ -1,0 +1,14 @@
+def nextPermutation(permutation, n):
+    breakpoint = 0
+    for i in range(n - 1, 0, -1):
+        if permutation[i - 1] < permutation[i]:
+            breakpoint = i - 1
+            break
+    else:
+        return permutation[::-1]
+    for i in range(n - 1, breakpoint, -1):
+        if permutation[i] > permutation[breakpoint]:
+            permutation[breakpoint], permutation[i] = permutation[i], permutation[breakpoint]
+            permutation[breakpoint + 1:] = permutation[breakpoint + 1:][::-1]
+            break
+    return permutation
