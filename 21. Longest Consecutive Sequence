@@ -1,0 +1,11 @@
+def lengthOfLongestConsecutiveSequence(arr, n):
+    st = set(arr)
+    res = 0
+    for num in arr:
+        if num - 1 not in st:
+            cnt = 0
+            while num in st:
+                num += 1
+                cnt += 1
+            res = max(res, cnt)
+    return res
