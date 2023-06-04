@@ -1,0 +1,13 @@
+def findMajorityElement(arr, n):
+	majElement, majCnt = -1, 0
+	for i in range(n):
+		if majCnt == 0:
+			majElement = arr[i]
+			majCnt = 1
+		elif arr[i] == majElement:
+			majCnt += 1
+		else:
+			majCnt -= 1
+	if arr.count(majElement) > (n // 2):
+		return majElement
+	return -1
