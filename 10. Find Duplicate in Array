@@ -1,0 +1,25 @@
+# using set
+
+# def findDuplicate(arr:list, n:int):
+#     st = set()
+#     for num in arr:
+#         if num in st:
+#             return num
+#         st.add(num)
+#     return 0
+
+
+# using LinkedList Cycle detection concept
+
+def findDuplicate(arr:list, n:int):
+    slow = fast = 0
+    while True:
+        slow = arr[slow]
+        fast = arr[arr[fast]]
+        if slow == fast:
+            break
+    fast = 0
+    while slow != fast:
+        slow = arr[slow]
+        fast = arr[fast]
+    return slow
