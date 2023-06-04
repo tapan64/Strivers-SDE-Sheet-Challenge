@@ -1,0 +1,25 @@
+def majorityElementII(arr):
+	n = len(arr)
+	majElem1, majElem2, majCnt1, majCnt2 = -1, -1, 0, 0
+	for i in range(n):
+		if majCnt1 == 0 and arr[i] != majElem2:
+			majElem1 = arr[i]
+			majCnt1 = 1
+			continue
+		if majCnt2 == 0 and arr[i] != majElem1:
+			majElem2 = arr[i]
+			majCnt2 = 1
+			continue
+		if arr[i] == majElem1:
+			majCnt1 += 1
+		elif arr[i] == majElem2:
+			majCnt2 += 1
+		else:
+			majCnt1 -= 1
+			majCnt2 -= 1
+	res = []
+	if arr.count(majElem1) > (n // 3):
+		res.append(majElem1)
+	if arr.count(majElem2) > (n // 3):
+		res.append(majElem2)
+	return res
