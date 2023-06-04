@@ -1,0 +1,38 @@
+# using maths
+
+# def missingAndRepeating(arr, n):
+#     sm = sum(arr)
+#     nsm = n * (n + 1) // 2
+#     XMinusY = sm - nsm
+#     psm = 0
+#     npsm = n * (n + 1) * (2 * n + 1) // 6
+#     for num in arr:
+#         psm += num * num
+#     X2MinusY2 = psm - npsm
+#     XPlusY = X2MinusY2 // XMinusY
+#     x = (XPlusY + XMinusY) // 2
+#     y = XPlusY - x
+#     return [y, x]
+
+
+# using XOR operations
+
+def missingAndRepeating(arr, n):
+    xr = 0
+    for i in range(n):
+        xr ^= arr[i]
+        xr ^= i + 1
+    bitPos = xr & ~(xr - 1)
+    x = y = 0
+    for i in range(n):
+        if arr[i] & bitPos:
+            x ^= arr[i]
+        else:
+            y ^= arr[i]
+        if (i + 1) & bitPos:
+            x ^= i + 1
+        else:
+            y ^= i + 1
+    if arr.count(x) == 2:
+        return [y, x]
+    return [x, y]
