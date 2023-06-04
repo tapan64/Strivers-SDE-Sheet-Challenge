@@ -1,0 +1,16 @@
+def pairSum(arr, s):
+    dct = {}
+    res = []
+    for num in arr:
+        if s - num in dct:
+            for i in range(dct[s - num]):
+                if num < s - num:
+                    res.append([num, s - num])
+                else:
+                    res.append([s - num, num])
+        if num in dct:
+            dct[num] += 1
+        else:
+            dct[num] = 1
+    res.sort(key = lambda x: x[0])
+    return res
