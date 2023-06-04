@@ -1,0 +1,51 @@
+from math import *
+from collections import *
+from sys import *
+from os import *
+
+from typing import List
+
+# Approach 1 - using 2 visited rows
+# TC - n*m
+# SC - n+m
+
+# def setZeros(matrix: List[List[int]]) -> None:
+#     n, m = len(matrix), len(matrix[0])
+#     visRow, visCol = [False] * n, [False] * m
+#     for i in range(n):
+#         for j in range(m):
+#             if matrix[i][j] == 0:
+#                 visRow[i] = True
+#                 visCol[j] = True
+#     for i in range(n):
+#         for j in range(m):
+#             if matrix[i][j]:
+#                 if visRow[i] or visCol[j]:
+#                     matrix[i][j] = 0
+
+# Approach 2 - without using extra space
+# TC - n*m
+# SC - Constant
+
+def setZeros(matrix: List[List[int]]) -> None:
+    n, m = len(matrix), len(matrix[0])
+    firstCol = 1
+    for i in range(n):
+        for j in range(m):
+            if matrix[i][j] == 0:
+                matrix[i][0] = 0
+                if j == 0:
+                    firstCol = 0
+                else:
+                    matrix[0][j] = 0
+    for i in range(1, n):
+        for j in range(1, m):
+            if matrix[i][j] and (matrix[i][0] == 0 or matrix[0][j] == 0):
+                matrix[i][j] = 0
+    if matrix[0][0] == 0:
+        for j in range(m):
+            matrix[0][j] = 0
+    if firstCol == 0:
+        for i in range(n):
+            matrix[i][0] = 0
+        
