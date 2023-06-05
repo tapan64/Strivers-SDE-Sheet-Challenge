@@ -1,0 +1,17 @@
+def cloneRandomList(head):
+    if not head:
+        return None
+    newHead = LinkedListNode(head.data)
+    newCur, cur = newHead, head.next
+    copyNodes = {head: newHead}
+    while cur:
+        newCur.next = LinkedListNode(cur.data)
+        newCur = newCur.next
+        copyNodes[cur] = newCur
+        cur = cur.next
+    cur = head
+    while cur:
+        newCur = copyNodes[cur]
+        newCur.random = cur.random
+        cur = cur.next
+    return newHead
