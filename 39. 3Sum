@@ -1,0 +1,22 @@
+def findTriplets(arr, n, k):
+    res = []
+    arr.sort()
+    for i in range(n - 2):
+        if i > 0 and arr[i - 1] == arr[i]:
+            continue
+        target = k - arr[i]
+        low, high = i + 1, n - 1
+        while low < high:
+            if arr[low] + arr[high] == target:
+                res.append([arr[i], arr[low], arr[high]])
+                while low < high and arr[low] == arr[low + 1]:
+                    low += 1
+                while low < high and arr[high] == arr[high - 1]:
+                    high -= 1
+                low += 1
+                high -= 1
+            elif arr[low] + arr[high] < target:
+                low += 1
+            else:
+                high -= 1
+    return res
