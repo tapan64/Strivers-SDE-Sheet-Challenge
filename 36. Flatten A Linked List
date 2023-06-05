@@ -1,0 +1,26 @@
+def merge(head1, head2):
+    res = cur = Node()
+    while head1 and head2:
+        if head1.data < head2.data:
+            cur.child = head1
+            head1 = head1.child
+        else:
+            cur.child = head2
+            head2 = head2.child
+        cur = cur.child
+    if head1:
+        cur.child = head1
+    if head2:
+        cur.child = head2
+    return res.child
+
+def flattenLinkedList(head: Node) -> Node:
+    if not head or not head.next:
+        return head
+    curHead, nextHead = head, head.next
+    if curHead.data > nextHead.data:
+        head = head.next
+    while nextHead:
+        curHead = merge(curHead, nextHead)
+        nextHead = nextHead.next
+    return curHead
