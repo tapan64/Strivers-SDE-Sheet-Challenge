@@ -1,0 +1,23 @@
+def isPalindrome(s, i, j):
+    while i < j:
+        if s[i] != s[j]:
+            return False
+        i += 1
+        j -= 1
+    return True
+
+def dfs(i, n, s, temp, res):
+    if i == n:
+        res.append(temp.copy())
+        return
+    for j in range(i, n):
+        if isPalindrome(s, i, j):
+            temp.append(s[i:j + 1])
+            dfs(j + 1, n, s, temp, res)
+            temp.pop()
+            
+
+def partition(s):
+    res = []
+    dfs(0, len(s), s, [], res)
+    return res
