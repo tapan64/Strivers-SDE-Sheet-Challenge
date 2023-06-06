@@ -1,0 +1,12 @@
+def maximumActivities(start, finish):
+    works = []
+    for i in range(len(start)):
+        works.append(Work(start[i], finish[i]))
+    works.sort(key = lambda x: x.finish)
+    res = 1
+    lastWork = works[0].finish
+    for i in range(1, len(works)):
+        if works[i].start >= lastWork:
+            res += 1
+            lastWork = works[i].finish
+    return res
