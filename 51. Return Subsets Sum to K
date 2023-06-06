@@ -1,0 +1,15 @@
+def dfs(i, n, k, temp, arr, res):
+    if i == n:
+        if k == 0:
+            res.append(temp.copy())
+        return 
+    temp.append(arr[i])
+    dfs(i + 1, n, k - arr[i], temp, arr, res)
+    temp.pop()
+    dfs(i + 1, n, k, temp, arr, res)
+
+def findSubsetsThatSumToK(arr, n, k):
+    res = []
+    dfs(0, n, k, [], arr, res)
+    res.sort()
+    return res
