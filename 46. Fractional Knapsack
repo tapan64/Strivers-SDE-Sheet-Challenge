@@ -1,0 +1,12 @@
+def maximumValue(items, n, w):
+	items.sort(key = lambda x: -(x[1] / x[0]))
+	i = res = 0
+	while w > 0 and i < n:
+		if w >= items[i][0]:
+			wt = items[i][0]
+		else:
+			wt = w
+		res += (items[i][1] / items[i][0]) * wt
+		w -= items[i][0]
+		i += 1
+	return res
