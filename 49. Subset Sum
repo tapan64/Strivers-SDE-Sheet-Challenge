@@ -1,0 +1,12 @@
+def dfs(i, sm, nums, res):
+    if i == -1:
+        res.append(sm)
+        return
+    pick = dfs(i - 1, sm + nums[i], nums, res)
+    notPick = dfs(i - 1, sm, nums, res)
+
+def subsetSum(nums: List[int]) -> List[int]:
+    res = []
+    dfs(len(nums) - 1, 0, nums, res)
+    res.sort()
+    return res
