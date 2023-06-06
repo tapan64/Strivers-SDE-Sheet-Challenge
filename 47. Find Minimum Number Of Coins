@@ -1,0 +1,8 @@
+def findMinimumCoins(amount):
+	n, res = len(denominations), 0
+	while n:
+		if amount >= denominations[n - 1]:
+			res += amount // denominations[n - 1]
+			amount %= denominations[n - 1]
+		n -= 1
+	return res
