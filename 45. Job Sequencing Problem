@@ -1,0 +1,13 @@
+def jobScheduling(jobs):
+    jobs.sort(key = lambda x: -x[1])
+    st = set()
+    res = 0
+    for deadline, profit in jobs:
+        while deadline:
+            if deadline in st:
+                deadline -= 1
+            else:
+                st.add(deadline)
+                res += profit
+                break
+    return res
