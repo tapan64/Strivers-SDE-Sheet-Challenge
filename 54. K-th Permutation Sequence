@@ -1,0 +1,22 @@
+def fact(n):
+    dp = [1, 1]
+    for i in range(2, n + 1):
+        dp.append(i * dp[i - 1])
+    return dp
+
+def dfs(n, k, res, temp, dp):
+    if n == 1:
+        res[0] = res[0] * 10 + temp.pop()
+        return
+    total = dp[n]
+    part = total // n
+    ind = k // part
+    res[0] = res[0] * 10 + temp.pop(ind)
+    dfs(n - 1, k % part, res, temp, dp)
+
+def kthPermutation(n, k):
+    res = [0]
+    dp = fact(n)
+    temp = [i + 1 for i in range(n)]
+    dfs(n, k - 1, res, temp, dp)
+    return res[0]
