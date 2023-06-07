@@ -1,0 +1,36 @@
+def isPossible(row, col, n, chess, visRow, visCol, visDiag1, visDiag2):
+    if visRow[row]: return False 
+    if visCol[col]: return False
+    if visDiag1[row + col]: return False
+    if visDiag2[row - col + n - 1]: return False
+    return True
+
+def dfs(col, n, chess, visRow, visCol, visDiag1, visDiag2, res):
+    if col == n:
+        temp = []
+        for i in range(n):
+            for j in range(n):
+                temp.append(chess[i][j])
+        res.append(temp)
+        return
+    for row in range(n):
+        if isPossible(row, col, n, chess, visRow, visCol, visDiag1, visDiag2):
+            chess[row][col] = 1
+            visRow[row] = True
+            visCol[col] = True
+            visDiag1[row + col] = True
+            visDiag2[row - col + n - 1] = True
+            dfs(col + 1, n, chess, visRow, visCol, visDiag1, visDiag2, res)
+            chess[row][col] = 0
+            visRow[row] = False
+            visCol[col] = False
+            visDiag1[row + col] = False
+            visDiag2[row - col + n - 1] = False
+
+
+def solveNQueens(n):
+    chess = [[0 for j in range(n)] for i in range(n)]
+    res = []
+    visRow, visCol, visDiag1, visDiag2 = [False] * n, [False] * n, [False] * (2 * n - 1), [False] * (2 * n - 1)
+    dfs(0, n, chess, visRow, visCol, visDiag1, visDiag2, res)
+    return res
