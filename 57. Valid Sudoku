@@ -1,0 +1,33 @@
+def isPossible(i, j, matrix, num):
+    stRow, stCol = (i // 3) * 3, (j // 3) * 3
+    for k in range(9):
+        if matrix[i][k] == num:
+            return False
+        if matrix[k][j] == num:
+            return False
+        row, col = stRow + (k // 3), stCol + (k % 3)
+        if matrix[row][col] == num:
+            return False
+    return True
+
+
+def dfs(i, j, matrix):
+    if j == 9:
+        i += 1
+        j = 0
+    if i == 9:
+        return True
+    if matrix[i][j] == 0:
+        for num in range(1, 10):
+            if isPossible(i, j, matrix, num):
+                possible = True
+                matrix[i][j] = num
+                if dfs(i, j + 1, matrix):
+                    return True
+                matrix[i][j] = 0
+    else:
+        if dfs(i, j + 1, matrix):
+            return True
+
+def isItSudoku(matrix):
+    return dfs(0, 0, matrix)
