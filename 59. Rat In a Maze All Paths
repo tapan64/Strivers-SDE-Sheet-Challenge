@@ -1,0 +1,29 @@
+def dfs(i, j, n, maze, visited, res):
+    if i == n - 1 and j == n - 1:
+        path = []
+        for p in range(n):
+            for q in range(n):
+                path.append(visited[p][q])
+        res.append(path.copy())
+        return 
+    dr = [-1, 0, 1, 0]
+    dc = [0, 1, 0, -1]
+    for k in range(4):
+        r = i + dr[k]
+        c = j + dc[k]
+        if r >= 0 and c >= 0 and r < n and c < n and visited[r][c] == 0 and maze[r][c]:
+            visited[r][c] = 1
+            dfs(r, c, n, maze, visited, res)
+            visited[r][c] = 0
+
+def ratInAMaze(maze, n):
+    if maze[n - 1][n - 1] == 0:
+        return []
+    visited = [[0 for j in range(n)] for i in range(n)]
+    res = []
+    visited[0][0] = 1
+    dfs(0, 0, n, maze, visited, res)
+    for path in res:
+        for k in path:
+            print(k, end=' ')
+        print()
