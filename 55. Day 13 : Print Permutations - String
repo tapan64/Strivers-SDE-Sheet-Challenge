@@ -1,0 +1,15 @@
+def dfs(i, n, s, temp, visited, res):
+	if i == n:
+		res.append(temp)
+		return
+	for ind in range(n):
+		if not visited[ind]:
+			visited[ind] = True
+			dfs(i + 1, n, s, temp + s[ind], visited, res)
+			visited[ind] = False
+
+def findPermutations(s):
+	visited = [False] * len(s)
+	res = []
+	dfs(0, len(s), s, '', visited, res)
+	return res
