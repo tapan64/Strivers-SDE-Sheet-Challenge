@@ -1,0 +1,15 @@
+def dfs(i, n, s, temp, st, res):
+    if i == n:
+        temp = temp.strip()
+        res.append(temp)
+        return
+    for j in range(i, n):
+        if s[i:j + 1] in st:
+            dfs(j + 1, n, s, temp + ' ' + s[i:j + 1], st, res)
+
+
+def wordBreak(s, dictionary):
+    st = set(dictionary)
+    res = []
+    dfs(0, len(s), s, '', st, res)
+    return res
