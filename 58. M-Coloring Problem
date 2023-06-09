@@ -1,0 +1,28 @@
+def isPossible(node, adj, colored, color):
+    for adjNode in adj[node]:
+        if colored[adjNode] == color:
+            return False
+    return True
+
+def dfs(node, n, adj, colored, m):
+    if node == n:
+        return True
+    for color in range(m):
+        if isPossible(node, adj, colored, color):
+            colored[node] = color
+            if dfs(node + 1, n, adj, colored, m):
+                return True
+            colored[node] = -1
+    return False
+
+def graphColoring(mat,m):
+    n = len(mat)
+    colored = [-1] * n
+    adj = [[] for i in range(n)]
+    for i in range(n):
+        for j in range(n):
+            if mat[i][j]:
+                adj[i].append(j)
+    if dfs(0, n, adj, colored, m):
+        return 'YES'
+    return 'NO'
