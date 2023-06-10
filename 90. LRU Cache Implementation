@@ -1,0 +1,55 @@
+class Node:
+	def __init__(self, key=0, val=0):
+		self.key = key
+		self.val = val
+		self.next = None
+		self.prev = None
+
+class DLL:
+	def __init__(self):
+		self.head = self.tail = Node()
+		self.head.next = self.tail
+		self.tail.prev = self.head
+		self.size = 0
+
+	def insertNode(self, node):
+		node.next = self.head.next
+		self.head.next.prev = node
+		node.prev = self.head
+		self.head.next = node
+		self.size += 1
+	
+	def deleteNode(self, node):
+		node.prev.next = node.next
+		node.next.prev = node.prev
+		self.size -= 1
+
+class LRUCache:
+	# Initialize the LRU Cache
+	def __init__(self, capacity):
+		self.capacity = capacity
+		self.keyNodes = {}
+		self.dll = DLL()
+	
+	def get(self, key):
+		if key not in self.keyNodes:
+			return -1
+		self.dll.deleteNode(self.keyNodes[key])
+		self.dll.insertNode(self.keyNodes[key])
+		return self.keyNodes[key].val
+	
+	def put(self, key, value):
+		if key in self.keyNodes:
+			node = self.keyNodes[key]
+			node.val = value
+			self.dll.deleteNode(node)
+			self.dll.insertNode(node)
+			self.keyNodes[key] = node
+			return
+		if self.capacity == self.dll.size:
+			lruNode = self.dll.tail.prev
+			self.dll.deleteNode(lruNode)
+			self.keyNodes.pop(lruNode.key)
+		newNode = Node(key, value)
+		self.dll.insertNode(newNode)
+		self.keyNodes[key] = newNode
