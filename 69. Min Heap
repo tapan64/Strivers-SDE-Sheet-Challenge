@@ -1,0 +1,45 @@
+class MyHeap:
+    def __init__(self):
+        self.heap = []
+    
+    def pushHeapify(self, ind):
+        if ind == 0:
+            return
+        parentInd = (ind - 1) // 2
+        if self.heap[parentInd] > self.heap[ind]:
+            self.heap[ind], self.heap[parentInd] = self.heap[parentInd], self.heap[ind]
+            self.pushHeapify(parentInd)
+
+    def push(self, item):
+        self.heap.append(item)
+        ind = len(self.heap) - 1
+        self.pushHeapify(ind)
+    
+    def popHeapify(self, ind, n):
+        leftInd = 2 * ind + 1
+        rightInd = leftInd + 1
+        if leftInd < n and self.heap[ind] > self.heap[leftInd]:
+            self.heap[ind], self.heap[leftInd] = self.heap[leftInd], self.heap[ind]
+            self.popHeapify(leftInd, n)
+        if rightInd < n and self.heap[ind] > self.heap[rightInd]:
+            self.heap[ind], self.heap[rightInd] = self.heap[rightInd], self.heap[ind]
+            self.popHeapify(rightInd, n)
+
+    def pop(self):
+        n = len(self.heap)
+        self.heap[0], self.heap[n - 1] = self.heap[n - 1], self.heap[0]
+        mn = self.heap.pop()
+        if self.heap:
+            self.popHeapify(0, n - 1)
+        return mn
+
+def minHeap(N: int, Q: [[]]) -> []:
+    myHeap = MyHeap()
+    res = []
+    for i in range(N):
+        if Q[i][0]:
+            res.append(myHeap.pop())
+        else:
+            myHeap.push(Q[i][1])
+    return res
+
