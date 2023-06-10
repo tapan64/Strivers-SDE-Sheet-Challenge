@@ -1,0 +1,22 @@
+# def reverseString(str: str) -> str:
+#     res = ''
+#     words = str.split()
+#     for word in words:
+#         word = word.strip()
+#         if word != '':
+#             res = word + ' ' + res
+#     res = res.strip()
+#     return res
+
+def reverseString(s: str) -> str:
+    res = ''
+    j = len(s) - 1
+    while j >= 0:
+        while j >= 0 and s[j] == ' ':
+            j -= 1
+        i = j
+        while i >= 0 and s[i] != ' ':
+            i -= 1
+        res += s[i + 1:j + 1] + ' '
+        j = i
+    return res[:-1]
