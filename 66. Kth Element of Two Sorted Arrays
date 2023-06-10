@@ -1,0 +1,20 @@
+import sys
+def ninjaAndLadoos(row1, row2, m, n, k):
+    if n < m:
+        return ninjaAndLadoos(row2, row1, n, m, k)
+    low = max(k - n, 0)
+    high = min(m, k)
+    while low <= high:
+        cut1 = (low + high) // 2
+        cut2 = k - cut1
+        l1 = row1[cut1 - 1] if cut1 > 0 else -sys.maxsize
+        l2 = row2[cut2 - 1] if cut2 > 0 else -sys.maxsize
+        r1 = row1[cut1] if cut1 < m else sys.maxsize
+        r2 = row2[cut2] if cut2 < n else sys.maxsize
+        if l1 <= r2 and l2 <= r1:
+            return max(l1, l2)
+        if l1 > r2:
+            high = cut1 - 1
+        else:
+            low = cut1 + 1
+    return 0
