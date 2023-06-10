@@ -1,0 +1,21 @@
+def isPossible(positions, n, c, mid):
+    lastPos = positions[0]
+    allocated = 1
+    for pos in positions:
+        if pos - lastPos >= mid:
+            allocated += 1
+            lastPos = pos
+    if allocated >= c:
+        return True
+    return False
+
+def chessTournament(positions, n , c):
+    positions.sort()
+    low, high = 0, positions[n - 1] - positions[0]
+    while low <= high:
+        mid = (low + high) // 2
+        if isPossible(positions, n, c, mid):
+            low = mid + 1
+        else:
+            high = mid - 1
+    return high
