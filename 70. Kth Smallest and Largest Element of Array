@@ -1,0 +1,14 @@
+import heapq
+def kthSmallLarge(arr, n, k):
+    heapq.heapify(arr)
+    lk = n - k + 1
+    kthSmallest = kthLargest = 0
+    while lk > 0 or k > 0:
+        val = heapq.heappop(arr)
+        lk -= 1
+        k -= 1
+        if lk == 0:
+            kthLargest = val
+        if k == 0:
+            kthSmallest = val
+    return [kthSmallest, kthLargest]
