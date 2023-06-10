@@ -1,0 +1,22 @@
+import heapq
+
+def kMaxSumCombination(a, b, n, k):
+	a.sort(reverse=True)
+	b.sort(reverse=True)
+	heap = [(-(a[0] + b[0]), 0, 0)]
+	st = {(0, 0)}
+	res = []
+	while k:
+		sm, i, j = heapq.heappop(heap)
+		sm = -sm
+		res.append(sm)
+		k -= 1
+		if k == 0:
+			break
+		if (i + 1, j) not in st:
+			st.add((i + 1, j))
+			heapq.heappush(heap, (-(a[i + 1] + b[j]), i + 1, j))
+		if (i, j + 1) not in st:
+			st.add((i, j + 1))
+			heapq.heappush(heap, (-(a[i] + b[j + 1]), i, j + 1))
+	return res
