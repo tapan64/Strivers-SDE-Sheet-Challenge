@@ -1,0 +1,25 @@
+import sys
+def median(a, b):
+    an, bn = len(a), len(b)
+    if bn < an:
+        return median(b, a)
+    low, high = 0, an - 1
+    total = an + bn
+    half = (total) // 2
+    while low <= high:
+        cut1 = (low + high) // 2
+        cut2 = half - cut1
+        l1 = a[cut1 - 1] if cut1 > 0 else -sys.maxsize
+        l2 = b[cut2 - 1] if cut2 > 0 else -sys.maxsize
+        r1 = a[cut1]
+        r2 = b[cut2]
+        if l1 <= r2 and l2 <= r1:
+            if total % 2:
+                return float(min(r1, r2))
+            else:
+                return (max(l1, l2) + min(r1, r2)) / 2
+        if l1 > r2:
+            high = cut1 - 1
+        else:
+            low = cut1 + 1
+    return 0
