@@ -1,0 +1,54 @@
+from sys import stdin
+import sys 
+sys.setrecursionlimit(10**7)
+
+# def dfs(i, prevInd, n, arr, dp):
+#     if i == n:
+#         return 0
+#     if dp[i][prevInd] != -1:
+#         return dp[i][prevInd]
+#     notPick = dfs(i + 1, prevInd, n, arr, dp)
+#     pick = 0
+#     if prevInd == -1 or arr[i] > arr[prevInd]:
+#         pick = 1 + dfs(i + 1, i, n, arr, dp)
+#     dp[i][prevInd] = max(notPick, pick)
+#     return dp[i][prevInd]
+
+# def longestIncreasingSubsequence(arr, n):
+#     dp = [[-1 for j in range(n)] for i in range(n)]
+#     return dfs(0, -1, n, arr, dp)
+    
+
+# def longestIncreasingSubsequence(arr, n):
+#     dp = [[0 for j in range(n + 1)] for i in range(n + 1)]
+#     for i in range(n - 1, -1, -1):
+#         for prevInd in range(i - 1, -2, -1):
+#             notPick = dp[i + 1][prevInd + 1]
+#             pick = 0
+#             if prevInd == -1 or arr[i] > arr[prevInd]:
+#                 pick = 1 + dp[i + 1][i + 1]
+#             dp[i][prevInd + 1] = max(notPick, pick)
+#     return dp[0][0]
+
+
+# def longestIncreasingSubsequence(arr, n):
+#     nex = [0] * (n + 1)
+#     for i in range(n - 1, -1, -1):
+#         cur = [0] * (n + 1)
+#         for prevInd in range(i - 1, -2, -1):
+#             notPick = nex[prevInd + 1]
+#             pick = 0
+#             if prevInd == -1 or arr[i] > arr[prevInd]:
+#                 pick = 1 + nex[i + 1]
+#             cur[prevInd + 1] = max(notPick, pick)
+#         nex = cur
+#     return nex[0]
+
+
+def longestIncreasingSubsequence(arr, n):
+    dp = [1] * n
+    for i in range(1, n):
+        for prev in range(i):
+            if arr[prev] < arr[i] and dp[prev] + 1 > dp[i]:
+                dp[i] = dp[prev] + 1
+    return max(dp)
