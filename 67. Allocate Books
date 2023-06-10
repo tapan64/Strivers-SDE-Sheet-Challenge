@@ -1,0 +1,24 @@
+def isPossible(n, m, times, mid):
+    day = 1
+    spendTime = 0
+    for time in times:
+        if time > mid:
+            return False
+        if spendTime + time > mid:
+            day += 1
+            spendTime = time
+        else:
+            spendTime += time
+        if day > n:
+            return False
+    return True
+
+def ayushGivesNinjatest(n, m, times):
+    low, high = 1, sum(times)
+    while low <= high:
+        mid = (low + high) // 2
+        if isPossible(n, m, times, mid):
+            high = mid - 1
+        else:
+            low = mid + 1
+    return low
