@@ -1,0 +1,11 @@
+def getLevelOrder(root):
+    que = Queue()
+    que.put(root)
+    res = []
+    while not que.empty():
+        node = que.get()
+        if node:
+            res.append(node.val)
+            que.put(node.left)
+            que.put(node.right)
+    return res
