@@ -1,0 +1,18 @@
+from collections import deque
+def isValidParenthesis(expression):
+    stk = deque()
+    dct = {']': '[', '}': '{', ')': '('}
+    for ch in expression:
+        if ch in dct:
+            if stk:
+                if stk[-1] == dct[ch]:
+                    stk.pop()
+                else:
+                    return False
+            else:
+                return False
+        else:
+            stk.append(ch)
+    if stk:
+        return False
+    return True
