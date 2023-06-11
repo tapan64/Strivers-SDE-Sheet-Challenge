@@ -1,0 +1,53 @@
+# def dfs(i, w, values, weights, dp):
+#     if i == -1:
+#         return 0
+#     if dp[i][w] != -1:
+#         return dp[i][w]
+#     notPick = dfs(i - 1, w, values, weights, dp)
+#     pick = 0
+#     if weights[i] <= w:
+#         pick = values[i] + dfs(i - 1, w - weights[i], values, weights, dp)
+#     dp[i][w] = max(notPick, pick)
+#     return dp[i][w]
+
+# def maxProfit(values, weights, n, w):
+#     dp = [[-1 for j in range(w + 1)] for i in range(n)]
+#     return dfs(n - 1, w, values, weights, dp)
+
+
+# def maxProfit(values, weights, n, mw):
+#     dp = [[0 for j in range(mw + 1)] for i in range(n + 1)]
+#     for i in range(1, n + 1):
+#         for w in range(mw + 1):
+#             notPick = dp[i - 1][w]
+#             pick = 0
+#             if weights[i - 1] <= w:
+#                 pick = values[i - 1] + dp[i - 1][w - weights[i - 1]]
+#             dp[i][w] = max(notPick, pick)
+#     return dp[n][mw]
+
+
+# def maxProfit(values, weights, n, mw):
+#     prev = [0] * (mw + 1)
+#     for i in range(1, n + 1):
+#         cur = [0] * (mw + 1)
+#         for w in range(mw + 1):
+#             notPick = prev[w]
+#             pick = 0
+#             if weights[i - 1] <= w:
+#                 pick = values[i - 1] + prev[w - weights[i - 1]]
+#             cur[w] = max(notPick, pick)
+#         prev = cur
+#     return prev[mw]
+
+
+def maxProfit(values, weights, n, mw):
+    dp = [0] * (mw + 1)
+    for i in range(1, n + 1):
+        for w in range(mw, -1, -1):
+            notPick = dp[w]
+            pick = 0
+            if weights[i - 1] <= w:
+                pick = values[i - 1] + dp[w - weights[i - 1]]
+            dp[w] = max(notPick, pick)
+    return dp[mw]
