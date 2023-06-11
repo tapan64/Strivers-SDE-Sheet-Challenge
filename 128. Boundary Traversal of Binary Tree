@@ -1,0 +1,40 @@
+def isLeaf(node):
+    return not node.left and not node.right
+
+def leftBoundaryNodes(node, res):
+    while node:
+        if not isLeaf(node):
+            res.append(node.data)
+        if node.left:
+            node = node.left
+        else:
+            node = node.right
+
+def leafNodes(node, res):
+    if isLeaf(node):
+        res.append(node.data)
+        return
+    if node.left:
+        leafNodes(node.left, res)
+    if node.right:
+        leafNodes(node.right, res)
+    
+def rightBoundaryNodes(node, res):
+    temp = []
+    while node:
+        if not isLeaf(node):
+            temp.append(node.data)
+        if node.right:
+            node = node.right
+        else:
+            node = node.left
+    res += temp[::-1]
+
+def traverseBoundary(root):
+    res = [root.data]
+    if isLeaf(root):
+        return res
+    leftBoundaryNodes(root.left, res)
+    leafNodes(root, res)
+    rightBoundaryNodes(root.right, res)
+    return res
