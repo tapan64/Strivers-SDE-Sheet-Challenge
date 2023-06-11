@@ -1,0 +1,13 @@
+def dfs(node, x, y):
+    if not node or node.data == x or node.data == y:
+        return node
+    left = dfs(node.left, x, y)
+    right = dfs(node.right, x, y)
+    if not left:
+        return right
+    if not right:
+        return left
+    return node
+
+def lowestCommonAncestor(root, x, y):
+    return dfs(root, x, y).data
