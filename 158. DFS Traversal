@@ -1,0 +1,21 @@
+def dfs(node, visited, adj, temp, res):
+    visited[node] = True
+    temp.append(node)
+    for adjNode in adj[node]:
+        if not visited[adjNode]:
+            dfs(adjNode, visited, adj, temp, res)
+
+def depthFirstSearch(V, E, edges):
+    res = []
+    adj = [[] for i in range(V)]
+    visited = [False] * V
+    for a, b in edges:
+        adj[a].append(b)
+        adj[b].append(a)
+    for node in range(V):
+        if not visited[node]:
+            temp = []
+            dfs(node, visited, adj, temp, res)
+            temp.sort()
+            res.append(temp)
+    return res
