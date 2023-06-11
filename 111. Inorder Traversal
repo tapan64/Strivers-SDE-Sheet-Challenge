@@ -11,18 +11,38 @@
 #     return res
 
 
+# def getInOrderTraversal(root):
+#     res = []
+#     stk = deque()
+#     while True:
+#         if root:
+#             stk.append(root)
+#             root = root.left
+#         else:
+#             if stk:
+#                 root = stk.pop()
+#                 res.append(root.data)
+#                 root = root.right
+#             else:
+#                 break
+#     return res
+    
+
 def getInOrderTraversal(root):
     res = []
-    stk = deque()
-    while True:
-        if root:
-            stk.append(root)
-            root = root.left
-        else:
-            if stk:
-                root = stk.pop()
+    while root:
+        if root.left:
+            prev = root.left
+            while prev.right and prev.right != root:
+                prev = prev.right
+            if prev.right:
+                prev.right = None
                 res.append(root.data)
                 root = root.right
             else:
-                break
+                prev.right = root
+                root = root.left
+        else:
+            res.append(root.data)
+            root = root.right
     return res
