@@ -1,0 +1,18 @@
+def getTopView(root):
+    if not root:
+        return []
+    que = deque([(root, 0)])
+    dct = {0: root}
+    while que:
+        node, col = que.popleft()
+        if node:
+            if col not in dct:
+                dct[col] = node
+            que.append((node.left, col - 1))
+            que.append((node.right, col + 1))
+    cols = list(dct.keys())
+    cols.sort()
+    res = []
+    for col in cols:
+        res.append(dct[col].val)
+    return res
