@@ -1,0 +1,31 @@
+# def dfs(i, n, st, target, dp):
+#     if i == n:
+#         return True
+#     if dp[i] != -1:
+#         return dp[i]
+#     for j in range(i, n):
+#         if target[i:j + 1] in st:
+#             if dfs(j + 1, n, st, target, dp):
+#                 return True
+#     dp[i] = False
+#     return dp[i]
+
+# def wordBreak(arr, n, target):
+#     st = set(arr)
+#     dp = [-1 for i in range(len(target))]
+#     return dfs(0, len(target), st, target, dp)
+
+
+def wordBreak(arr, n, target):
+    tn = len(target)
+    st = set(arr)
+    dp = [False for i in range(tn + 1)]
+    dp[tn] = True
+    for i in range(tn - 1, -1, -1):
+        for j in range(i, tn):
+            if target[i:j + 1] in st:
+                dp[i] = dp[j + 1]
+                break
+        else:
+            dp[i] = False
+    return dp[0]
