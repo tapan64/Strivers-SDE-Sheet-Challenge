@@ -1,0 +1,15 @@
+def quickSort(low, high, arr, k):
+    piv = low
+    for i in range(low, high):
+        if arr[i] <= arr[high]:
+            arr[i], arr[piv] = arr[piv], arr[i]
+            piv += 1
+    arr[high], arr[piv] = arr[piv], arr[high]
+    if piv > k:
+        return quickSort(low, piv - 1, arr, k)
+    if piv < k:
+        return quickSort(piv + 1, high, arr, k)
+    return arr[piv]
+
+def kthLargest(arr, size, k):
+    return quickSort(0, size - 1, arr, size - k)
