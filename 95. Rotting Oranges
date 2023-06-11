@@ -1,0 +1,33 @@
+from collections import deque
+def minTimeToRot(grid, n, m):
+    rottenOranges = totalOranges = 0
+    que = deque()
+    for i in range(n):
+        for j in range(m):
+            if grid[i][j]:
+                totalOranges += 1
+            if grid[i][j] == 2:
+                rottenOranges += 1
+                que.append((i, j))
+    if rottenOranges == 0 or rottenOranges == totalOranges:
+        return 0
+    dr = [-1, 0, 1, 0]
+    dc = [0, 1, 0, -1]
+    visited = [[False for j in range(m)] for i in range(n)]
+    res = -1
+    while que:
+        qlen = len(que)
+        while qlen:
+            qlen -= 1
+            i, j = que.popleft()
+            for k in range(4):
+                r = i + dr[k]
+                c = j + dc[k]
+                if r >= 0 and c >= 0 and r < n and c < m and not visited[r][c] and grid[r][c] == 1:
+                    visited[r][c] = True
+                    que.append((r, c))
+                    rottenOranges += 1
+        res += 1
+    if rottenOranges == totalOranges:
+        return res
+    return -1
