@@ -1,0 +1,19 @@
+import heapq
+
+def dijkstra(vec, vertices, edges, source):
+    adj = [[] for _ in range(vertices)]
+    for a, b, w in vec:
+        adj[a].append([b, w])
+        adj[b].append([a, w])
+    visited = [False] * vertices
+    heap, dis = [(0, source)], [2147483647] * vertices
+    dis[source] = 0
+    while heap:
+        wt, node = heapq.heappop(heap)
+        visited[node] = True
+        for adjNode, adjWt in adj[node]:
+            if not visited[adjNode]:
+                if wt + adjWt < dis[adjNode]:
+                    dis[adjNode] = wt + adjWt
+                    heapq.heappush(heap, (wt + adjWt, adjNode))
+    return dis
