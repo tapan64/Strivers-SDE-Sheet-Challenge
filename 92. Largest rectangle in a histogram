@@ -1,0 +1,23 @@
+from collections import deque
+def largestRectangle(arr):
+    n = len(arr)
+    pse, nse = [-1] * n, [n] * n
+    pstk, nstk = deque(), deque()
+    for i in range(n):
+        while pstk and arr[pstk[-1]] >= arr[i]:
+            pstk.pop()
+        if pstk:
+            pse[i] = pstk[-1]
+        pstk.append(i)
+    for i in range(n - 1, - 1, -1):
+        while nstk and arr[nstk[-1]] >= arr[i]:
+            nstk.pop()
+        if nstk:
+            nse[i] = nstk[-1]
+        nstk.append(i)
+    res = 0
+    for i in range(n):
+        width = nse[i] - pse[i] - 1
+        height = arr[i]
+        res = max(res, height * width)
+    return res
