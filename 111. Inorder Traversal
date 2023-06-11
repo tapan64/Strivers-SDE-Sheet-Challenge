@@ -1,0 +1,28 @@
+# def dfs(node, res):
+#     if not node:
+#         return
+#     dfs(node.left, res)
+#     res.append(node.data)
+#     dfs(node.right, res)
+
+# def getInOrderTraversal(root):
+#     res = []
+#     dfs(root, res)
+#     return res
+
+
+def getInOrderTraversal(root):
+    res = []
+    stk = deque()
+    while True:
+        if root:
+            stk.append(root)
+            root = root.left
+        else:
+            if stk:
+                root = stk.pop()
+                res.append(root.data)
+                root = root.right
+            else:
+                break
+    return res
