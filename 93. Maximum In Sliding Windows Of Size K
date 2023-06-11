@@ -1,0 +1,17 @@
+from collections import *
+
+def slidingWindowMaximum(nums:list, k:int):
+	if k == 1:
+		return nums
+	res = []
+	dque = deque([0])
+	n = len(nums)
+	for i in range(1, n):
+		if dque[0] == i - k:
+			dque.popleft()
+		while dque and nums[i] > nums[dque[-1]]:
+			dque.pop()
+		dque.append(i)
+		if i >= k - 1:
+			res.append(nums[dque[0]])
+	return res
