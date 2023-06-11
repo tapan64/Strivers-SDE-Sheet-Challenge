@@ -1,0 +1,27 @@
+class Stack:
+    def __init__(self):
+        self.que = deque()
+
+    def getSize(self):
+        return len(self.que)
+
+    def isEmpty(self):
+        if self.que:
+            return False
+        return True
+
+    def push(self,ele):
+        n = len(self.que)
+        self.que.append(ele)
+        for _ in range(n):
+            self.que.append(self.que.popleft())
+
+    def pop(self):
+        if self.isEmpty():
+            return -1
+        return self.que.popleft()
+
+    def top(self):
+        if self.isEmpty():
+            return -1
+        return self.que[0]
