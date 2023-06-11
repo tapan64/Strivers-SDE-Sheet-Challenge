@@ -1,0 +1,28 @@
+def merge(a, b):
+	merged = []
+	i, j, an, bn = 0, 0, len(a), len(b)
+	while i < an and j < bn:
+		if a[i] < b[j]:
+			merged.append(a[i])
+			i += 1
+		else:
+			merged.append(b[j])
+			j += 1
+	while i < an:
+		merged.append(a[i])
+		i += 1
+	while j < bn:
+		merged.append(b[j])
+		j += 1
+	return merged
+
+def mergeSort(kArrays, k, res):
+	if k == -1:
+		return res
+	res = merge(kArrays[k], res)
+	return mergeSort(kArrays, k - 1, res)
+
+
+def mergeKSortedArrays(kArrays, k:int):
+	res = mergeSort(kArrays, k - 1, [])
+	return res
