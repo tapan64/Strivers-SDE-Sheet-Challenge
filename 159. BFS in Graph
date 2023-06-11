@@ -1,0 +1,22 @@
+def BFS(vertex, edges):
+    adj = [[] for i in range(vertex)]
+    for i in range(len(edges[0])):
+        a, b = edges[0][i], edges[1][i]
+        adj[a].append(b)
+        adj[b].append(a)
+    for row in adj:
+        row.sort()
+    visited = [False] * vertex
+    res = []
+    for i in range(vertex):
+        if not visited[i]:
+            visited[i] = True
+            que = deque([i])
+            while que:
+                node = que.popleft()
+                res.append(node)
+                for adjNode in adj[node]:
+                    if not visited[adjNode]:
+                        visited[adjNode] = True
+                        que.append(adjNode)
+    return res
