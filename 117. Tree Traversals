@@ -1,0 +1,35 @@
+# def dfs(node, res):
+#     if not node:
+#         return
+#     res[1].append(node.data)
+#     dfs(node.left, res)
+#     res[0].append(node.data)
+#     dfs(node.right, res)
+#     res[2].append(node.data)
+
+# def getTreeTraversal(root):
+#     res = [[],[],[]]
+#     dfs(root, res)
+#     return res
+
+
+def getTreeTraversal(root):
+    res = [[],[],[]]
+    if not root:
+        return res
+    stk = deque([(root, 1)])
+    while stk:
+        node, key = stk.pop()
+        if key == 1:
+            res[1].append(node.data)
+            stk.append((node, key + 1))
+            if node.left:
+                stk.append((node.left, 1))
+        elif key == 2:
+            res[0].append(node.data)
+            stk.append((node, key + 1))
+            if node.right:
+                stk.append((node.right, 1))
+        else:
+            res[2].append(node.data)
+    return res
