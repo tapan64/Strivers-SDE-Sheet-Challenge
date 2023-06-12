@@ -1,0 +1,42 @@
+# def findCelebrity(n, knows):
+#     indegrees, outdegrees = [0] * n, [0] * n
+#     for i in range(n):
+#         for j in range(i + 1, n):
+#             if knows(i, j):
+#                 outdegrees[i] += 1
+#                 indegrees[j] += 1
+#             if knows(j, i):
+#                 outdegrees[j] += 1
+#                 indegrees[i] += 1
+#     for i in range(n):
+#         if indegrees[i] == n - 1 and outdegrees[i] == 0:
+#             return i
+#     return -1
+
+# def findCelebrity(n, knows):
+#     stk = deque([i for i in range(n)])
+#     while len(stk) > 1:
+#         a = stk.pop()
+#         b = stk.pop()
+#         if knows(a, b):
+#             stk.append(b)
+#         else:
+#             stk.append(a)
+#     celebrity = stk.pop()
+#     for person in range(n):
+#         if person != celebrity and (knows(celebrity, person) or not knows(person, celebrity)):
+#             return -1
+#     return celebrity
+
+def findCelebrity(n, knows):
+    low, high = 0, n - 1
+    while low < high:
+        if knows(low, high):
+            low += 1
+        else:
+            high -= 1
+    celebrity = low
+    for person in range(n):
+        if person != celebrity and (knows(celebrity, person) or not knows(person, celebrity)):
+            return -1
+    return celebrity
