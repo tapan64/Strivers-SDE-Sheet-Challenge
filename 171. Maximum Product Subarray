@@ -1,0 +1,11 @@
+def maximumProduct(arr, n):
+    maxProd = minProd = 1
+    res = max(arr)
+    for num in arr:
+        if num == 0:
+            maxProd = minProd = 1
+        tempMaxProd = maxProd
+        maxProd = max(maxProd * num, minProd * num, num)
+        minProd = min(tempMaxProd * num, minProd * num, num)
+        res = max(res, maxProd)
+    return res
