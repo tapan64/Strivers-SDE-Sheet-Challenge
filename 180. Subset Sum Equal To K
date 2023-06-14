@@ -1,0 +1,60 @@
+# def dfs(i, target, arr, dp):
+#     if i == -1:
+#         if target == 0:
+#             return True
+#         return False
+#     if dp[i][target] != -1:
+#         return dp[i][target]
+#     notPick = dfs(i - 1, target, arr, dp)
+#     pick = False
+#     if arr[i] <= target:
+#         pick = dfs(i - 1, target - arr[i], arr, dp)
+#     dp[i][target] = notPick or pick
+#     return dp[i][target]
+
+# def subsetSumToK(n, k, arr):
+#     dp = [[-1 for j in range(k + 1)] for i in range(n)]
+#     return dfs(n - 1, k, arr, dp)
+    
+    
+# def subsetSumToK(n, k, arr):
+#     dp = [[False for j in range(k + 1)] for i in range(n + 1)]
+#     for i in range(n + 1):
+#         dp[i][0] = True
+#     for i in range(1, n + 1):
+#         for target in range(1, k + 1):
+#             notPick = dp[i - 1][target]
+#             pick = False
+#             if arr[i - 1] <= target:
+#                 pick = dp[i - 1][target - arr[i - 1]]
+#             dp[i][target] = notPick or pick
+#     return dp[n][k]
+    
+
+# def subsetSumToK(n, k, arr):
+#     prev = [False] * (k + 1)
+#     prev[0] = True
+#     for i in range(1, n + 1):
+#         cur = [False] * (k + 1)
+#         cur[0] = True
+#         for target in range(1, k + 1):
+#             notPick = prev[target]
+#             pick = False
+#             if arr[i - 1] <= target:
+#                 pick = prev[target - arr[i - 1]]
+#             cur[target] = notPick or pick
+#         prev = cur
+#     return prev[k]
+
+
+def subsetSumToK(n, k, arr):
+    dp = [False] * (k + 1)
+    dp[0] = True
+    for i in range(1, n + 1):
+        for target in range(k, 0, -1):
+            notPick = dp[target]
+            pick = False
+            if arr[i - 1] <= target:
+                pick = dp[target - arr[i - 1]]
+            dp[target] = notPick or pick
+    return dp[k]
