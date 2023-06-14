@@ -1,0 +1,13 @@
+def dfs(node, P, Q):
+    if not node or node == P or node == Q:
+        return node
+    left = dfs(node.left, P, Q)
+    right = dfs(node.right, P, Q)
+    if not left:
+        return right
+    if not right:
+        return left
+    return node
+
+def LCAinaBST(root, P, Q):
+    return dfs(root, P, Q)
