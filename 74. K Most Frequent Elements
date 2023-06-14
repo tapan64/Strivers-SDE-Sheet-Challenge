@@ -1,0 +1,15 @@
+import heapq
+def KMostFrequent(n: int, k: int, arr: List[int]) -> List[int]:
+    freq, res, heap = {}, [], []
+    for num in arr:
+        if num in freq:
+            freq[num] += 1
+        else:
+            freq[num] = 1
+    for key in freq:
+        heapq.heappush(heap, (-freq[key], key))
+    for _ in range(k):
+        cnt, key = heapq.heappop(heap)
+        res.append(key)
+    res.sort()
+    return res
