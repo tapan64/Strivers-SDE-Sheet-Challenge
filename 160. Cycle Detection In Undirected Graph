@@ -1,0 +1,46 @@
+# def dfs(node, adj, visited, prev):
+#     visited[node] = True
+#     for adjNode in adj[node]:
+#         if not visited[adjNode]:
+#             if dfs(adjNode, adj, visited, node):
+#                 return True
+#         elif adjNode != prev:
+#             return True
+#     return False
+
+# def cycleDetection(edges, n, m):
+#     adj = [[] for _ in range(n + 1)]
+#     for a, b in edges:
+#         adj[a].append(b)
+#         adj[b].append(a)
+#     visited = [False] * (n + 1)
+#     for node in range(1, n + 1):
+#         if not visited[node]:
+#             if dfs(node, adj, visited, -1):
+#                 return 'Yes'
+#     return 'No'
+
+from collections import deque
+def bfs(root, adj, visited, prev):
+    que = deque([(root, prev)])
+    while que:
+        node, prev = que.popleft()
+        visited[node] = True
+        for adjNode in adj[node]:
+            if not visited[adjNode]:
+                que.append((adjNode, node))
+            elif adjNode != prev:
+                return True
+    return False
+
+def cycleDetection(edges, n, m):
+    adj = [[] for _ in range(n + 1)]
+    for a, b in edges:
+        adj[a].append(b)
+        adj[b].append(a)
+    visited = [False] * (n + 1)
+    for node in range(1, n + 1):
+        if not visited[node]:
+            if bfs(node, adj, visited, -1):
+                return 'Yes'
+    return 'No'
