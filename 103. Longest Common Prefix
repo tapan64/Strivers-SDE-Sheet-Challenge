@@ -1,0 +1,31 @@
+class Node:
+    def __init__(self):
+        self.children = {}
+        self.end = False
+
+class Trie:
+    def __init__(self):
+        self.root = Node()
+
+    def insert(self, word):
+        cur = self.root
+        for ch in word:
+            if ch not in cur.children:
+                cur.children[ch] = Node()
+            cur = cur.children[ch]
+        cur.end = True
+    
+    def longestPrefix(self):
+        cur = self.root
+        res = ''
+        while len(cur.children) == 1:
+            ch = list(cur.children)[0]
+            res += ch
+            cur = cur.children[ch]
+        return res
+
+def longestCommonPrefix(arr, n):
+    trie = Trie()
+    for word in arr:
+        trie.insert(word)
+    return trie.longestPrefix()
