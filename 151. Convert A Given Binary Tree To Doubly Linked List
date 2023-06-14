@@ -1,0 +1,22 @@
+def BTtoDLL(root):
+    cur = root
+    stk = deque()
+    head = prev = None
+    while True:
+        if cur:
+            stk.append(cur)
+            cur = cur.left
+        else:
+            if stk:
+                cur = stk.pop()
+                if prev:
+                    prev.right = cur
+                    cur.left = prev.right
+                temp = cur.right
+                if not head:
+                    head = cur
+                prev = cur
+                cur = temp
+            else:
+                break
+    return head
