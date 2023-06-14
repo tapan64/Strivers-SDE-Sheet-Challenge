@@ -1,0 +1,15 @@
+def bottomView(root):
+    res, dct = [], {}
+    que = deque([(root, 0)])
+    while que:
+        node, col = que.popleft()
+        dct[col] = node.data
+        if node.left:
+            que.append((node.left, col - 1))
+        if node.right:
+            que.append((node.right, col + 1))
+    keys = list(dct.keys())
+    keys.sort()
+    for col in keys:
+        res.append(dct[col])
+    return res
