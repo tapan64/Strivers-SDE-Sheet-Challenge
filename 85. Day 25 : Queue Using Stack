@@ -1,0 +1,27 @@
+class Queue:
+
+    def __init__(self):
+        self.pushStk = deque()
+        self.popStk = deque()
+
+    def enQueue(self, val):
+        self.pushStk.append(val)
+
+    def deQueue(self):
+        if self.popStk:
+            return self.popStk.pop()
+        if self.pushStk:
+            while self.pushStk:
+                self.popStk.append(self.pushStk.pop())
+            return self.popStk.pop()
+        return -1
+
+    def peek(self):
+        if self.popStk:
+            return self.popStk[-1]
+        if self.pushStk:
+            return self.pushStk[0]
+        return -1
+
+    def isEmpty(self):
+        return not self.popStk and not self.pushStk
