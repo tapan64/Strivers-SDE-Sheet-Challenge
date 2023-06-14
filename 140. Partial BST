@@ -1,0 +1,15 @@
+def dfs(node, prev):
+    if not node:
+        return True
+    if not dfs(node.left, prev):
+        return False
+    if node.data < prev[0]:
+        return False
+    prev[0] = node.data
+    if not dfs(node.right, prev):
+        return False
+    return True
+        
+def validateBST(root):
+    prev = [-sys.maxsize]
+    return dfs(root, prev)
