@@ -1,0 +1,15 @@
+def dfs(node, res):
+    if not node.left and not node.right:
+        return node.val
+    leftHeight = dfs(node.left, res) if node.left else -1
+    rightHeight = dfs(node.right, res) if node.right else -1
+    if leftHeight != -1 and rightHeight != -1:
+        res[0] = max(res[0], leftHeight + rightHeight + node.val)
+    return node.val + max(leftHeight, rightHeight)
+
+def findMaxSumPath(root):
+    if not root:
+        return -1
+    res = [-1]
+    dfs(root, res)
+    return res[0]
