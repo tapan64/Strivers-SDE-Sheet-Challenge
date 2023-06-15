@@ -32,31 +32,3 @@ class Trie :
                 return False
             cur = cur.children[ch]
         return True
-
-
-
-# main
-t = int(input().strip())
-root = Trie()
-for i in range(t) :
-
-    q_str = stdin.readline().strip().split(" ")
-    q = int(q_str[0].strip())
-    str1 = q_str[1].strip()
-
-    if(q == 1) :
-        root.insert(str1)
-    
-    elif (q == 2) :
-        if(root.search(str1)) :
-            print("true") 
-
-        else :
-            print("false")
-        
-    else :
-        if(root.startWith(str1)) :
-            print("true")
-
-        else :
-            print("false")
