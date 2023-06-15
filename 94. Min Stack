@@ -1,0 +1,31 @@
+class minStack:
+	# Write your code here.
+			
+    # Constructor
+    def __init__(self):
+        self.stk = deque()
+    
+    # Function to add another element equal to num at the top of stack.
+    def push(self, num: int) -> None:
+        if self.stk:
+            self.stk.append((num, min(num, self.stk[-1][1])))
+        else:
+            self.stk.append((num, num))
+    
+    # Function to remove the top element of the stack.
+    def pop(self) -> int:
+        if self.stk:
+            return self.stk.pop()[0]
+        return -1
+    
+    # Function to return the top element of stack if it is present. Otherwise return -1.
+    def top(self) -> int:
+        if self.stk:
+            return self.stk[-1][0]
+        return -1
+    
+    # Function to return minimum element of stack if it is present. Otherwise return -1.
+    def getMin(self) -> int:
+        if self.stk:
+            return self.stk[-1][1]
+        return -1
