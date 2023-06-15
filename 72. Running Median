@@ -1,0 +1,26 @@
+class MedianFinder:
+    def __init__(self):
+        self.priorityQue = []
+    
+    def insert(self, num):
+        low, high = 0, len(self.priorityQue) - 1
+        while low <= high:
+            mid = (low + high) // 2
+            if self.priorityQue[mid] <= num:
+                low = mid + 1
+            else:
+                high = mid - 1
+        self.priorityQue.insert(low, num)
+    
+    def getMedian(self):
+        n = len(self.priorityQue)
+        m = n // 2
+        if n % 2:
+            return self.priorityQue[m]
+        return (self.priorityQue[m - 1] + self.priorityQue[m]) // 2
+
+def findMedian(arr, n):
+    medianFinder = MedianFinder()
+    for num in arr:
+        medianFinder.insert(num)
+        print(medianFinder.getMedian(), end=' ')
