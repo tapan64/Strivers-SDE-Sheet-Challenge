@@ -1,0 +1,19 @@
+def verticalOrderTraversal(root):
+    que = deque([(root, 0)])
+    res = []
+    dct = {}
+    while que:
+        node, col = que.popleft()
+        if node:
+            if col in dct:
+                dct[col].append(node.data)
+            else:
+                dct[col] = [node.data]
+            que.append((node.left, col - 1))
+            que.append((node.right, col + 1))
+    keys = list(dct.keys())
+    keys.sort()
+    for key in keys:
+        for num in dct[key]:
+            res.append(num)
+    return res
