@@ -1,0 +1,23 @@
+def dfs(node, colored, adj):
+    for adjNode in adj[node]:
+        if colored[adjNode] == -1:
+            colored[adjNode] = 1 - colored[node]
+            if not dfs(adjNode, colored, adj):
+                return False
+        elif colored[adjNode] == colored[node]:
+            return False
+    return True
+
+def isGraphBirpartite(edges):
+    v = len(edges)
+    adj = [[] for i in range(v)] 
+    for i in range(v):
+        for j in range(v):
+            if edges[i][j]:
+                adj[i].append(j)
+    colored = [-1] * v
+    for node in range(v):
+        if colored[node] == -1:
+            if not dfs(node, colored, adj):
+                return False
+    return True
