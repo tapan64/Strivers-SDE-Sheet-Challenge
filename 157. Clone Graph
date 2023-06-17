@@ -1,0 +1,15 @@
+def dfs(node, copyNode, nodesMap):
+    for adjNode in node.neighbours:
+        if adjNode not in nodesMap:
+            adjCopyNode = graphNode(adjNode.data)
+            nodesMap[adjNode] = adjCopyNode
+        adjCopyNode = nodesMap[adjNode]
+        if adjCopyNode not in copyNode.neighbours:
+            copyNode.neighbours.append(adjCopyNode)
+            dfs(adjNode, adjCopyNode, nodesMap)
+
+def cloneGraph(node):
+    copyHead = graphNode(node.data)
+    nodesMap = {node: copyHead}
+    dfs(node, copyHead, nodesMap)
+    return copyHead
