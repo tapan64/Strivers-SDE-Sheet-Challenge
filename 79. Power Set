@@ -1,0 +1,11 @@
+def pwset(v):
+    n = len(v)
+    totalItems = int(pow(2, n))
+    res = []
+    for num in range(totalItems):
+        temp = []
+        for i in range(n):
+            if num & (1 << i):
+                temp.append(v[i])
+        res.append(temp)
+    return res
