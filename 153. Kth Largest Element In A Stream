@@ -1,0 +1,15 @@
+def Kthlargest(k,arr):
+    arr.sort(reverse=True)
+        
+def add(num):
+    low, high = 0, len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] <= num:
+            high = mid - 1
+        else:
+            low = mid + 1
+    arr.insert(low, num)
+    
+def getKthLargest():
+    return arr[k - 1]
