@@ -1,0 +1,20 @@
+def zigZagTraversal(root):
+    res = []
+    que = deque([root])
+    leftToRight = False
+    while que:
+        qlen = len(que)
+        temp = []
+        leftToRight = not leftToRight
+        while qlen:
+            qlen -= 1
+            node = que.popleft()
+            if node:
+                if leftToRight:
+                    temp.append(node.data)
+                else:
+                    temp.insert(0, node.data)
+                que.append(node.left)
+                que.append(node.right)
+        res += temp
+    return res
