@@ -1,0 +1,39 @@
+# def dfs(node, visited, adj, topo):
+#     visited[node] = True
+#     for adjNode in adj[node]:
+#         if not visited[adjNode]:
+#             dfs(adjNode, visited, adj, topo)
+#     topo.append(node)
+
+# def topologicalSort(adj, v, e):
+#     ad = [[] for i in range(v)]
+#     visited = [False] * v
+#     topo = []
+#     for i in range(e):
+#         ad[adj[i][0]].append(adj[i][1])
+#     for node in range(v):
+#         if not visited[node]:
+#             dfs(node, visited, ad, topo)
+#     topo.reverse()
+#     return topo
+
+
+def topologicalSort(adj, v, e):
+    ad = [[] for i in range(v)]
+    topo, inorders = [], [0] * v
+    for i in range(e):
+        ad[adj[i][0]].append(adj[i][1])
+    for i in range(e):
+        inorders[adj[i][1]] += 1
+    que = deque()
+    for node in range(v):
+        if inorders[node] == 0:
+            que.append(node)
+    while que:
+        node = que.popleft()
+        topo.append(node)
+        for adjNode in ad[node]:
+            inorders[adjNode] -= 1
+            if inorders[adjNode] == 0:
+                que.append(adjNode)
+    return topo
