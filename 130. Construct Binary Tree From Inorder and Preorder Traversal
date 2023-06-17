@@ -1,0 +1,12 @@
+def dfs(prei, prej, ini, inj, preorder, inorder):
+    if prei > prej:
+        return None
+    node = BinaryTreeNode(preorder[prei])
+    ind = inorder.index(preorder[prei])
+    node.left = dfs(prei + 1, prei + (ind - ini), ini, ind - 1, preorder, inorder)
+    node.right = dfs(prei + (ind - ini) + 1, prej, ind + 1, inj, preorder, inorder)
+    return node
+
+def buildBinaryTree(preorder:list, inorder:list):
+    n = len(preorder)
+    return dfs(0, n - 1, 0, n - 1, preorder, inorder)
