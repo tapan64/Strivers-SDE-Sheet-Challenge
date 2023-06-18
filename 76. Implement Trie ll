@@ -1,0 +1,46 @@
+class Node:
+    def __init__(self):
+        self.children = {}
+        self.prefixCount = 0
+        self.endWordCount = 0
+
+class Trie:
+    def __init__(self):
+        self.root = Node()
+
+    def insert(self, word):
+        cur = self.root
+        for ch in word:
+            if ch not in cur.children:
+                cur.children[ch] = Node()
+            cur = cur.children[ch]
+            cur.prefixCount += 1
+        cur.endWordCount += 1
+
+    def countWordsEqualTo(self, word):
+        cur = self.root
+        for ch in word:
+            if ch not in cur.children:
+                return 0
+            cur = cur.children[ch]
+        return cur.endWordCount
+
+    def countWordsStartingWith(self, word):
+        cur = self.root
+        for ch in word:
+            if ch not in cur.children:
+                return 0
+            cur = cur.children[ch]
+        return cur.prefixCount
+
+    def erase(self, word):
+        cur = self.root
+        for ch in word:
+            child = cur.children[ch]
+            if child.prefixCount == 1:
+                cur.children.pop(ch)
+                return
+            else:
+                child.prefixCount -= 1
+            cur = child
+        cur.endWordCount -= 1
