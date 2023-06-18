@@ -1,0 +1,11 @@
+def dfs(low, high, arr):
+	if low > high:
+		return None
+	mid = (low + high) // 2
+	node = TreeNode(arr[mid])
+	node.left = dfs(low, mid - 1, arr)
+	node.right = dfs(mid + 1, high, arr)
+	return node
+
+def sortedArrToBST(arr, n):
+	return dfs(0, n - 1, arr)
