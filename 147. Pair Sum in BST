@@ -1,0 +1,25 @@
+class Solution:
+    def convertToDLL(self, node):
+        if not node:
+            return
+        self.convertToDLL(node.left)
+        node.left = self.tail
+        self.tail.right = node
+        self.tail = node
+        self.convertToDLL(node.right)
+
+    def twoPointerApproach(self, k):
+        low, high = self.head.right, self.tail
+        while low != high:
+            if low.val + high.val == k:
+                return True
+            if low.val + high.val < k:
+                low = low.right
+            else:
+                high = high.left
+        return False
+
+    def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
+        self.head = self.tail = TreeNode(0)
+        self.convertToDLL(root)
+        return self.twoPointerApproach(k)
