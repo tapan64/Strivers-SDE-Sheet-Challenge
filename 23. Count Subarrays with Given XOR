@@ -1,0 +1,23 @@
+# def subarraysXor(arr, x):
+#     dct = {0: 1}
+#     res = xr = 0
+#     for num in arr:
+#         xr ^= num
+#         if xr ^ x in dct:
+#             res += dct[xr ^ x]
+#         if xr in dct:
+#             dct[xr] += 1
+#         else:
+#             dct[xr] = 1
+#     return res
+
+
+def subarraysXor(arr, x):
+    dct = defaultdict(int)
+    dct[0] = 1
+    res = xr = 0
+    for num in arr:
+        xr ^= num
+        res += dct[xr ^ x]
+        dct[xr] += 1
+    return res
