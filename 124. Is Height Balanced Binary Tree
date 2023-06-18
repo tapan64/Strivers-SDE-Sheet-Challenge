@@ -1,0 +1,18 @@
+def dfs(node):
+  if not node:
+    return 0
+  leftHeight = dfs(node.left)
+  rightHeight = dfs(node.right)
+  if leftHeight == -1 or rightHeight == -1:
+    return -1
+  if abs(leftHeight - rightHeight) > 1:
+    return -1
+  return 1 + max(leftHeight, rightHeight)
+
+
+def isBalancedBT(root):
+  if not root:
+    return True
+  if dfs(root) == -1:
+    return False
+  return True
