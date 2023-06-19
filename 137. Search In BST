@@ -1,0 +1,12 @@
+def searchInBST(root, x):
+	if not root:
+		return False
+	if root.data == x:
+		return True
+	if root.data < x:
+		if searchInBST(root.right, x):
+			return True
+	else:
+		if searchInBST(root.left, x):
+			return True
+	return False
