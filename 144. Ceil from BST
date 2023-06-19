@@ -1,0 +1,27 @@
+# def bstSearch(node, x, prev):
+#     if not node:
+#         return prev
+#     if node.data == x:
+#         return node
+#     if node.data > x:
+#         return bstSearch(node.left, x, node)
+#     return bstSearch(node.right, x, prev)
+
+# def findCeil(root, x):
+#     res = bstSearch(root, x, None)
+#     if res:
+#         return res.data
+#     return -1
+
+
+def findCeil(root, x):
+    res = -1
+    while root:
+        if root.data == x:
+            return x
+        if root.data < x:
+            root = root.right
+        else:
+            res = root.data
+            root = root.left
+    return res
