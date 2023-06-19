@@ -1,0 +1,11 @@
+from collections import deque
+def nextSmallerElement(arr,n):
+    nse = [-1] * n
+    stk = deque()
+    for i in range(n - 1, -1, -1):
+        while stk and stk[-1] >= arr[i]:
+            stk.pop()
+        if stk:
+            nse[i] = stk[-1]
+        stk.append(arr[i])
+    return nse
