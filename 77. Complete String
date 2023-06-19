@@ -1,0 +1,39 @@
+class Node:
+    def __init__(self):
+        self.children = {}
+        self.endOfWord = False
+    
+class Trie:
+    def __init__(self):
+        self.root = Node()
+    
+    def insert(self, word):
+        cur = self.root
+        for ch in word:
+            if ch not in cur.children:
+                cur.children[ch] = Node()
+            cur = cur.children[ch]
+        cur.endOfWord = True
+    
+    def isCompleteString(self, word):
+        cur = self.root
+        for ch in word:
+            if ch not in cur.children or not cur.children[ch].endOfWord:
+                return False
+            cur = cur.children[ch]
+        return cur.endOfWord
+
+def completeString(n: int, a: List[str])-> str:
+    trie = Trie()
+    res = ''
+    for word in a:
+        trie.insert(word)
+    for word in a:
+        if trie.isCompleteString(word):
+            if len(word) > len(res):
+                res = word
+            elif len(word) == len(res) and word < res:
+                res = word
+    if res:
+        return res
+    return 'None'
