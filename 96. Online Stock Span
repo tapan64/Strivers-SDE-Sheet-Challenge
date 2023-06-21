@@ -1,0 +1,10 @@
+def findSpans(price):
+    res = []
+    stk = deque()
+    for pr in price:
+        cnt = 1
+        while stk and pr >= stk[-1][0]:
+            cnt += stk.pop()[1]
+        stk.append((pr, cnt))
+        res.append(cnt)
+    return res
