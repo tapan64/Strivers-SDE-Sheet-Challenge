@@ -1,0 +1,31 @@
+class DSU:
+    def __init__(self, n):
+        self.parent = [i for i in range(n + 1)]
+        self.size = [1] * (n + 1)
+
+    def ult(self, a):
+        if self.parent[a] == a:
+            return a
+        self.parent[a] = self.ult(self.parent[a])
+        return self.parent[a]
+    
+    def unionBySize(self, a, b):
+        ult_a, ult_b = self.ult(a), self.ult(b)
+        if ult_a == ult_b:
+            return False
+        if self.size[ult_a] > self.size[ult_b]:
+            self.parent[ult_b] = ult_a
+            self.size[ult_a] += self.size[ult_b]
+        else:
+            self.parent[ult_a] = ult_b
+            self.size[ult_b] += self.size[ult_a]
+        return True
+
+def kruskalMST(n, m, graph):
+    dsu = DSU(n)
+    res = 0
+    graph.sort(key = lambda x: x[2])
+    for a, b, w in graph:
+        if dsu.unionBySize(a, b):
+            res += w
+    return res
