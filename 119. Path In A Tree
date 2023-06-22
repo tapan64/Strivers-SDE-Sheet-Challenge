@@ -1,0 +1,13 @@
+def dfs(node, x, res):
+    if not node:
+        return False
+    if node.data == x or dfs(node.left, x, res) or dfs(node.right, x, res):
+        res.append(node.data)
+        return True
+    return False
+
+def pathInATree(root: TreeNode, x: int) -> List[int]:
+    res = []
+    dfs(root, x, res)
+    res.reverse()
+    return res
