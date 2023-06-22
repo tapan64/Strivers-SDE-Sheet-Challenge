@@ -1,0 +1,13 @@
+def putTopIntoSortedStack(stack, top):
+    if stack and top < stack[-1]:
+        tempTop = stack.pop()
+        putTopIntoSortedStack(stack, top)
+        stack.append(tempTop)
+    else:
+        stack.append(top)
+
+def sortStack(stack):
+    if stack:
+        top = stack.pop()
+        sortStack(stack)
+        putTopIntoSortedStack(stack, top)
