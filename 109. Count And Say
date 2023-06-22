@@ -1,0 +1,14 @@
+def speak(s):
+    i, n, res = 0, len(s), ''
+    while i < n:
+        j = i + 1
+        while j < n and s[i] == s[j]:
+            j += 1
+        res += str(j - i) + s[i]
+        i = j
+    return res
+
+def writeAsYouSpeak(n):
+    if n == 1:
+        return '1'
+    return speak(writeAsYouSpeak(n - 1))
