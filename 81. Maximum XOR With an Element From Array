@@ -1,0 +1,45 @@
+class Node:
+    def __init__(self):
+        self.bits = [None, None]
+
+class Trie:
+    def __init__(self):
+        self.root = Node()
+    
+    def insert(self, num):
+        cur = self.root
+        for i in range(31, -1, -1):
+            bit = 1 if num & (1 << i) else 0
+            if not cur.bits[bit]:
+                cur.bits[bit] = Node()
+            cur = cur.bits[bit]
+    
+    def maxXOr(self, num):
+        cur = self.root
+        res = 0
+        for i in range(31, -1, -1):
+            bit = 1 if num & (1 << i) else 0
+            oppositeBit = 1 - bit
+            if cur.bits[oppositeBit]:
+                res |= 1 << i
+                cur = cur.bits[oppositeBit]
+            else:
+                cur = cur.bits[bit]
+        return res
+
+
+def maxXorQueries(arr, queries):
+	trie = Trie()
+	n, m = len(arr), len(queries)
+	for i in range(m):
+		queries[i].append(i)
+	queries.sort(key = lambda x: x[1])
+	arr.sort()
+	res, i = [-1] * m , 0
+	for x, a, ind in queries:
+		while i < n and arr[i] <= a:
+			trie.insert(arr[i])
+			i += 1
+		if i > 0:
+			res[ind] = trie.maxXOr(x)
+	return res
