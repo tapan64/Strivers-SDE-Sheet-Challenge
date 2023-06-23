@@ -1,0 +1,16 @@
+def getMaxWidth(root):
+  if not root:
+    return 0
+  res = 0
+  que = deque([root])
+  while que:
+    qlen = len(que)
+    res = max(res, qlen)
+    while qlen:
+      qlen -= 1
+      node = que.popleft()
+      if node.left:
+        que.append(node.left)
+      if node.right:
+        que.append(node.right)
+  return res
