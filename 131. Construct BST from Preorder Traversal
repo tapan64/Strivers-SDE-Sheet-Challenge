@@ -1,0 +1,13 @@
+def rec(preOrder, i, j):
+    if i > j:
+        return None
+    node = TreeNode(preOrder[i])
+    k = i + 1
+    while k <= j and preOrder[k] < preOrder[i]:
+        k += 1
+    node.left = rec(preOrder, i + 1, k - 1)
+    node.right = rec(preOrder, k, j)
+    return node
+
+def preOrderTree(preOrder: List[int]) -> TreeNode:
+    return rec(preOrder, 0, len(preOrder) - 1)
