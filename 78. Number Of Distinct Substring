@@ -1,0 +1,39 @@
+# def distinctSubstring(word):
+#     n, res = len(word), 0
+#     st = set()
+#     for i in range(n):
+#         for j in range(i, n):
+#             if word[i:j + 1] not in st:
+#                 st.add(word[i:j + 1])
+#                 res += 1
+#     return res
+
+
+class Node:
+    def __init__(self):
+        self.children = {}
+        self.isEnd = False
+
+class Trie:
+    def __init__(self):
+        self.root = Node()
+        self.count = 0
+    
+    def insert(self, word):
+        cur = self.root
+        for ch in word:
+            if ch not in cur.children:
+                cur.children[ch] = Node()
+            cur = cur.children[ch]
+        if cur.isEnd:
+            return
+        cur.isEnd = True
+        self.count += 1
+
+def distinctSubstring(word):
+    n = len(word)
+    trie = Trie()
+    for i in range(n):
+        for j in range(i, n):
+            trie.insert(word[i:j + 1])
+    return trie.count
