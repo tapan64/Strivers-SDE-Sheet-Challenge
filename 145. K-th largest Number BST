@@ -1,0 +1,13 @@
+def KthLargestNumber(root, k):
+    stk = deque()
+    while root or stk:
+        if root:
+            stk.append(root)
+            root = root.right
+        else:
+            root = stk.pop()
+            k -= 1
+            if k == 0:
+                return root.data
+            root = root.left
+    return -1
