@@ -1,0 +1,19 @@
+import heapq
+def calculatePrimsMST(n, m, g):
+    adj = [[] for i in range(n + 1)]
+    for a, b, w in g:
+        adj[a].append((b, w))
+        adj[b].append((a, w))
+    heap = [(0, 1, 1)]
+    visited = [False] * (n + 1)
+    res = []
+    while heap:
+        wt, node, adjNode = heapq.heappop(heap)
+        if not visited[node]:
+            res.append([node, adjNode, wt])
+            visited[node] = True
+            for adjNode, adjWt in adj[node]:
+                if not visited[adjNode]:
+                    heapq.heappush(heap, (adjWt, adjNode, node))
+    res.pop(0)
+    return res
