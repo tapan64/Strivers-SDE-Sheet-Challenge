@@ -1,0 +1,16 @@
+def kthSmallest(root, k):
+    stk = deque()
+    while True:
+        if root:
+            stk.append(root)
+            root = root.left
+        else:
+            if stk:
+                root = stk.pop()
+                k -= 1
+                if k == 0:
+                    return root.data
+                root = root.right
+            else:
+                break
+    return -1
