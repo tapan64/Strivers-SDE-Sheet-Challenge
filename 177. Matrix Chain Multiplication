@@ -1,0 +1,36 @@
+# def dfs(i, j, arr, dp):
+# 	if i == j:
+# 		return 0
+# 	if dp[i][j] != -1:
+# 		return dp[i][j]
+# 	minSteps = sys.maxsize
+# 	for k in range(i, j):
+# 		steps = arr[i - 1] * arr[k] * arr[j]
+# 		left = dfs(i, k, arr, dp)
+# 		right = dfs(k + 1, j, arr, dp)
+# 		steps += left + right
+# 		minSteps = min(minSteps, steps)
+# 	dp[i][j] = minSteps
+# 	return minSteps
+
+# def matrixMultiplication(arr, n):
+# 	dp = [[-1 for j in range(n)] for i in range(n)]
+# 	return dfs(1, n - 1, arr, dp)
+
+
+def matrixMultiplication(arr, n):
+	dp = [[sys.maxsize for j in range(n)] for i in range(n)]
+	for i in range(n - 1, 0, -1):
+		for j in range(1, n):
+			if i == j:
+				dp[i][j] = 0
+				continue
+			minSteps = sys.maxsize
+			for k in range(i, j):
+				steps = arr[i - 1] * arr[k] * arr[j]
+				left = dp[i][k]
+				right = dp[k + 1][j]
+				steps += left + right
+				minSteps = min(minSteps, steps)
+			dp[i][j] = minSteps
+	return dp[1][n - 1]
