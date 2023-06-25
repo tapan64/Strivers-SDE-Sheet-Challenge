@@ -1,0 +1,31 @@
+# def getPreOrderTraversal(root):
+# 	stk = deque()
+# 	res = []
+# 	while root or stk:
+# 		if root:
+# 			stk.append(root)
+# 			res.append(root.data)
+# 			root = root.left
+# 		else:
+# 			root = stk.pop()
+# 			root = root.right
+# 	return res
+
+def getPreOrderTraversal(root):
+	res = []
+	while root:
+		if root.left:
+			prev = root.left
+			while prev.right and prev.right != root:
+				prev = prev.right
+			if prev.right:
+				prev.right = None
+				root = root.right
+			else:
+				res.append(root.data)
+				prev.right = root
+				root = root.left
+		else:
+			res.append(root.data)
+			root = root.right
+	return res
