@@ -1,0 +1,37 @@
+# KosaRaju's Algorithm
+
+from collections import deque
+def dfs(node, adj, visited, stk):
+    visited[node] = True
+    for adjNode in adj[node]:
+        if not visited[adjNode]:
+            dfs(adjNode, adj, visited, stk)
+    stk.append(node)
+
+def dfs2(node, adj, visited, temp):
+    visited[node] = True
+    temp.append(node)
+    for adjNode in adj[node]:
+        if not visited[adjNode]:
+            dfs2(adjNode, adj, visited, temp)
+
+def stronglyConnectedComponents(n, edges):
+    adj = [[] for i in range(n)]
+    revAdj = [[] for i in range(n)]
+    for u, v in edges:
+        adj[u].append(v)
+        revAdj[v].append(u)
+    stk = deque()
+    visited = [False] * n
+    for node in range(n):
+        if not visited[node]:
+            dfs(node, adj, visited, stk)
+    visited = [False] * n
+    res = []
+    while stk:
+        node = stk.pop()
+        if not visited[node]:
+            temp = []
+            dfs2(node, revAdj, visited, temp)
+            res.append(temp)
+    return res
