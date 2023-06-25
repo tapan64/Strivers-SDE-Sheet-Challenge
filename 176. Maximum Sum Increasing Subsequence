@@ -1,0 +1,7 @@
+def maxIncreasingDumbbellsSum(rack, n):
+    dp = [num for num in rack]
+    for i in range(1, n):
+        for prev in range(i):
+            if rack[prev] < rack[i] and dp[prev] + rack[i] > dp[i]:
+                dp[i] = dp[prev] + rack[i]
+    return max(dp)
