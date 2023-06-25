@@ -1,0 +1,9 @@
+def floorInBST(root, X):
+    res = 0
+    while root:
+        if root.data > X:
+            root = root.left
+        else:
+            res = root.data
+            root = root.right
+    return res
