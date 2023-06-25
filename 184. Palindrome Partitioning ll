@@ -1,0 +1,28 @@
+# def dfs(s, i, n, dp):
+#     if i == n:
+#         return 0
+#     if dp[i] != -1:
+#         return dp[i]
+#     mn = sys.maxsize
+#     for j in range(i, n):
+#         if isPalindrome(s, i, j):
+#             mn = min(mn, dfs(s, j + 1, n, dp))
+#     dp[i] = mn + 1
+#     return dp[i]
+
+# def palindromePartitioning(s):
+#     n = len(s)
+#     dp = [-1] * n
+#     return dfs(s, 0, n, dp) - 1
+
+
+def palindromePartitioning(s):
+    n = len(s)
+    dp = [0] * (n + 1)
+    for i in range(n - 1, -1, -1):
+        mn = sys.maxsize
+        for j in range(i, n):
+            if isPalindrome(s, i, j):
+                mn = min(mn, dp[j + 1])
+        dp[i] = mn + 1
+    return dp[0] - 1
