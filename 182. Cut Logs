@@ -1,0 +1,42 @@
+# def dfs(k, n, dp):
+#     if k <= 1 or n <= 1:
+#         return n
+#     if dp[n][k] != -1:
+#         return dp[n][k]
+#     res = n
+#     for i in range(1, n + 1):
+#         left = dfs(k - 1, i - 1, dp)
+#         right = dfs(k, n - i, dp)
+#         res = min(res, max(left, right))
+#     dp[n][k] = res + 1
+#     return dp[n][k]
+
+# def cutLogs(k, n):
+#     dp = [[-1 for j in range(k + 1)] for i in range(n + 1)]
+#     return dfs(k, n, dp)
+
+
+# def cutLogs(ok, on):
+#     dp = [[0 for j in range(ok + 1)] for i in range(on + 1)]
+#     for n in range(1, on + 1):
+#         for k in range(1, ok + 1):
+#             if n <= 1 or k <= 1:
+#                 dp[n][k] = n
+#                 continue
+#             res = n
+#             for i in range(1, n + 1):
+#                 left = dp[i - 1][k - 1]
+#                 right = dp[n - i][k]
+#                 res = min(res, max(left, right))
+#             dp[n][k] = res + 1
+#     return dp[on][ok]
+
+
+def cutLogs(k, n):
+    dp = [0] * (k + 1)
+    moves = 0
+    while dp[k] < n:
+        moves += 1
+        for i in range(k, 0, -1):
+            dp[i] += 1 + dp[i - 1]
+    return moves
