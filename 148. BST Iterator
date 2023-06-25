@@ -1,0 +1,20 @@
+class BSTiterator:
+    def __init__(self, root):
+        self.stk = deque()
+        while root:
+            self.stk.append(root)
+            root = root.left
+
+    def next(self):
+        node = self.stk.pop()
+        val = node.data
+        node = node.right
+        while node:
+            self.stk.append(node)
+            node = node.left
+        return val
+
+    def hasNext(self):
+        if self.stk:
+            return True
+        return False
