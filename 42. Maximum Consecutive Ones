@@ -1,0 +1,14 @@
+def longestSubSeg(arr, n, k):
+    res = windowStart = windowOnes = 0
+    for windowEnd in range(n):
+        if arr[windowEnd] == 1:
+            windowOnes += 1
+        windowCount = windowEnd - windowStart + 1
+        windowZeroes = windowCount - windowOnes
+        if windowZeroes > k:
+            if arr[windowStart] == 1: 
+                windowOnes -= 1
+            windowStart += 1
+        windowCount = windowEnd - windowStart + 1
+        res = max(res, windowCount)
+    return res
