@@ -1,0 +1,8 @@
+def atoi(s):
+    res = 0
+    for ch in s:
+        if ord(ch) in range(48, 58):
+            res = res * 10 + int(ch)
+    if s[0] == '-':
+        res *= -1
+    return res
