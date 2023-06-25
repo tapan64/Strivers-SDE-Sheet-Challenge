@@ -1,0 +1,33 @@
+# def getPostOrderTraversal(root):
+#     if not root:
+#         return []
+#     stk = deque([root])
+#     res = []
+#     while stk:
+#         node = stk.pop()
+#         res.append(node.data)
+#         if node.left:
+#             stk.append(node.left)
+#         if node.right:
+#             stk.append(node.right)
+#     return res[::-1]
+        
+def getPostOrderTraversal(root):
+    if not root:
+        return []
+    stk = deque()
+    res = []
+    while root or stk:
+        if root:
+            stk.append(root)
+            root = root.left
+        else:
+            top = stk[-1]
+            if top.right:
+                root = top.right
+            else:
+                res.append(stk.pop().data)
+                while stk and stk[-1].right == top:
+                    top = stk.pop()
+                    res.append(top.data)
+    return res
