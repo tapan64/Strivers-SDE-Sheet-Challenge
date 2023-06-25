@@ -1,0 +1,20 @@
+def predecessorSuccessor(root, key):
+    pre = suc = -1
+    while root:
+        if root.data == key:
+            cur = root.left
+            while cur:
+                pre = cur.data
+                cur = cur.right
+            cur = root.right
+            while cur:
+                suc = cur.data
+                cur = cur.left
+            break
+        if root.data > key:
+            suc = root.data
+            root = root.left
+        else:
+            pre = root.data
+            root = root.right
+    return [pre, suc]
