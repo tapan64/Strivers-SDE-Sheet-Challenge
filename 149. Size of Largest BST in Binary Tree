@@ -1,0 +1,19 @@
+import sys
+class MyNode:
+    def __init__(self, mn=sys.maxsize, mx=-sys.maxsize, size=0):
+        self.mn = mn
+        self.mx = mx
+        self.size = size
+
+def dfs(node):
+    if not node:
+        return MyNode()
+    left = dfs(node.left)
+    right = dfs(node.right)
+    if left.mx < node.data and node.data < right.mn:
+        return MyNode(min(left.mn, node.data), max(right.mx, node.data), left.size + right.size + 1)
+    return MyNode(-sys.maxsize, sys.maxsize, max(left.size, right.size))
+
+def largestBST(root):
+    res = dfs(root)
+    return res.size
