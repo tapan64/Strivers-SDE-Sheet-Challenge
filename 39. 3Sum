@@ -1,13 +1,28 @@
+# def findTriplets(arr, n, k):
+#     res = []
+#     for i in range(n - 2):
+#         target = k - arr[i]
+#         st = set()
+#         for j in range(i + 1, n):
+#             if target - arr[j] in st:
+#                 temp = [arr[i], arr[j], target - arr[j]]
+#                 temp.sort()
+#                 if temp not in res:
+#                     res.append(temp)
+#             else:
+#                 st.add(arr[j])
+#     return res
+
 def findTriplets(arr, n, k):
     res = []
     arr.sort()
     for i in range(n - 2):
         if i > 0 and arr[i - 1] == arr[i]:
             continue
-        target = k - arr[i]
         low, high = i + 1, n - 1
         while low < high:
-            if arr[low] + arr[high] == target:
+            sm = arr[i] + arr[low] + arr[high]
+            if sm == k:
                 res.append([arr[i], arr[low], arr[high]])
                 while low < high and arr[low] == arr[low + 1]:
                     low += 1
@@ -15,7 +30,7 @@ def findTriplets(arr, n, k):
                     high -= 1
                 low += 1
                 high -= 1
-            elif arr[low] + arr[high] < target:
+            elif sm < k:
                 low += 1
             else:
                 high -= 1
