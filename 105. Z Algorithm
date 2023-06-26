@@ -1,0 +1,27 @@
+def zAlgorithm(s, p, n, m):
+    s = p + '$' + s
+    tn = n + m + 1
+    z = [0] * tn
+    l, r, k = 0, 0, 0
+    res = 0
+    for i in range(1, tn):
+        if i > r:
+            l, r = i, i
+            while r < tn and s[r - l] == s[r]:
+                r += 1
+            z[i] = r - l
+            r -= 1
+        else:
+            k = i - l
+            if z[k] < r - i + 1:
+                z[i] = z[k]
+            else:
+                l = i
+                while r < tn and s[r - l] == s[r]:
+                    r += 1
+                z[i] = r - l
+                r -= 1
+    for cnt in z:
+        if cnt == m:
+            res += 1
+    return res
