@@ -1,7 +1,3 @@
-from sys import stdin
-import sys 
-sys.setrecursionlimit(10**7)
-
 # def dfs(i, prevInd, n, arr, dp):
 #     if i == n:
 #         return 0
@@ -45,10 +41,24 @@ sys.setrecursionlimit(10**7)
 #     return nex[0]
 
 
+# def longestIncreasingSubsequence(arr, n):
+#     dp = [1] * n
+#     for i in range(1, n):
+#         for prev in range(i):
+#             if arr[prev] < arr[i] and dp[prev] + 1 > dp[i]:
+#                 dp[i] = dp[prev] + 1
+#     return max(dp)
+
+
+import bisect
 def longestIncreasingSubsequence(arr, n):
-    dp = [1] * n
+    temp = [arr[0]]
+    res = 1
     for i in range(1, n):
-        for prev in range(i):
-            if arr[prev] < arr[i] and dp[prev] + 1 > dp[i]:
-                dp[i] = dp[prev] + 1
-    return max(dp)
+        if arr[i] > temp[-1]:
+            temp.append(arr[i])
+            res += 1
+        else:
+            ind = bisect.bisect_left(temp, arr[i])
+            temp[ind] = arr[i]
+    return res
