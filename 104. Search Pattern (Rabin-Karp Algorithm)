@@ -1,0 +1,28 @@
+def computeHash(s, prime):
+    hsh = 0
+    for i in range(len(s)):
+        hsh += ord(s[i]) * pow(prime, i)
+    return hsh
+
+def reComputeHash(old_hash, old_ch, new_ch, pat_len, prime):
+    new_hash = old_hash - ord(old_ch)
+    new_hash //= prime
+    new_hash += ord(new_ch) * pow(prime, pat_len - 1)
+    return new_hash
+
+def isEqual(old_hash, pat_hash, s, pat):
+    return old_hash == pat_hash and s == pat
+
+def stringMatch(s, pat):
+    res = []
+    prime = 101
+    pat_len = len(pat)
+    pat_hash = computeHash(pat, prime)
+    old_hash = computeHash(s[:pat_len], prime)
+    if isEqual(old_hash, pat_hash, s[:pat_len], pat):
+        res.append(0)
+    for i in range(1, len(s) - pat_len + 1):
+        old_hash = reComputeHash(old_hash, s[i - 1], s[i + pat_len - 1], pat_len, prime)
+        if isEqual(old_hash, pat_hash, s[i: i + pat_len], pat):
+            res.append(i)
+    return res
