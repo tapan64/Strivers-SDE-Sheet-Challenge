@@ -1,0 +1,20 @@
+def getListAfterReverseOperation(head, n, b):
+    if not head:
+        return head
+    dummy = pre = Node(0)
+    dummy.next = head
+    for k in b:
+        if not pre or not pre.next:
+            break
+        if k == 0:
+            continue
+        cur = pre.next
+        nex = cur.next
+        for _ in range(1, k):
+            if cur and cur.next:
+                cur.next = nex.next
+                nex.next = pre.next
+                pre.next = nex
+                nex = cur.next
+        pre = cur
+    return dummy.next
