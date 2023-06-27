@@ -1,0 +1,13 @@
+def rotateMatrix(mat, n, m):
+    k = min(n, m)
+    for i in range(k // 2):
+        topRow, leftCol, bottomRow, rightCol = i, i, n - i - 1, m - i - 1
+        x = mat[topRow][leftCol]
+        for j in range(leftCol + 1, rightCol + 1):
+            mat[topRow][j], x = x, mat[topRow][j]
+        for j in range(topRow + 1, bottomRow + 1):
+            mat[j][rightCol], x = x, mat[j][rightCol]
+        for j in range(rightCol - 1, leftCol - 1, -1):
+            mat[bottomRow][j], x = x, mat[bottomRow][j]
+        for j in range(bottomRow - 1, topRow - 1, -1):
+            mat[j][leftCol], x = x, mat[j][leftCol]
