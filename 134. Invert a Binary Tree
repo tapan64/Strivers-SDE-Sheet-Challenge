@@ -1,0 +1,27 @@
+from collections import deque
+def getPath(node, path, leaf):
+    if not node:
+        return False
+    if node.data == leaf:
+        path.append(node)
+        return True
+    if getPath(node.left, path, leaf):
+        path.append(node)
+        return True
+    if getPath(node.right, path, leaf):
+        path.append(node)
+        return True
+    return False
+
+def invertBinaryTree(root, leaf):
+    path = deque()
+    getPath(root, path, leaf)
+    res = head = path.popleft()
+    while path:
+        node = path.popleft()
+        if node.right == head:
+            node.right = node.left
+        node.left = None
+        head.left = node
+        head = node
+    return res
