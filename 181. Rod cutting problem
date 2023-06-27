@@ -1,0 +1,26 @@
+# def dfs(n, price, dp):
+#     if n == 0:
+#         return 0 
+#     if dp[n] != -1:
+#         return dp[n]
+#     max_cost = 0
+#     for i in range(1, n + 1):
+#         cost = price[i - 1] + dfs(n - i, price, dp)
+#         max_cost = max(max_cost, cost)
+#     dp[n] = max_cost
+#     return dp[n]
+
+# def cutRod(price, n):
+#     dp = [-1] * (n + 1)
+#     return dfs(n, price, dp)
+
+
+def cutRod(price, on):
+    dp = [0] * (on + 1)
+    for n in range(1, on + 1):
+        max_cost = 0
+        for i in range(1, n + 1):
+            cost = price[i - 1] + dp[n - i]
+            max_cost = max(max_cost, cost)
+        dp[n] = max_cost
+    return dp[on]
