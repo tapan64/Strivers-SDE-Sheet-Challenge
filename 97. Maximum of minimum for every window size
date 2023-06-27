@@ -1,0 +1,33 @@
+from collections import *
+import sys
+
+def getPreviousSmallerElements(arr, n):
+    pse, stk = [-1] * n, deque()
+    for i in range(n):
+        while stk and arr[stk[-1]] >= arr[i]:
+            stk.pop()
+        if stk:
+            pse[i] = stk[-1]
+        stk.append(i)
+    return pse
+
+def getNextSmallerElements(arr, n):
+    nse, stk = [n] * n, deque()
+    for i in range(n - 1, -1, -1):
+        while stk and arr[stk[-1]] >= arr[i]:
+            stk.pop()
+        if stk:
+            nse[i] = stk[-1]
+        stk.append(i)
+    return nse
+    
+def maxMinWindow(arr, n):
+    res = [-sys.maxsize] * n
+    pse = getPreviousSmallerElements(arr, n)
+    nse = getNextSmallerElements(arr, n)
+    for i in range(n):
+        size = nse[i] - pse[i] - 1
+        res[size - 1] = max(res[size - 1], arr[i])
+    for i in range(n - 2, -1, -1):
+        res[i] = max(res[i], res[i + 1])
+    return res
