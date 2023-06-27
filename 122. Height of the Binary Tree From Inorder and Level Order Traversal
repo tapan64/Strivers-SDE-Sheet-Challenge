@@ -1,0 +1,37 @@
+class MyNode:
+    def __init__(self, h, li, ri):
+        self.height = h
+        self.leftIndex = li
+        self.rightIndex = ri
+
+
+def heightOfTheTree(inorder, levelOrder, N):
+    maxHeight = 0
+    q = deque()
+
+    if N >= 1:
+        myNode = MyNode(0, 0, N - 1)
+        q.append(myNode)
+
+    map = {}
+    for i in range(N):
+        map[inorder[i]] = i
+
+    for i in range(N):
+        myNode = q.popleft()
+
+        maxHeight = max(myNode.height, maxHeight)
+
+        li = myNode.leftIndex
+        ri = myNode.rightIndex
+        rootIndex = map[levelOrder[i]]
+
+        if rootIndex - 1 >= li:
+            leftSubTree = MyNode(myNode.height + 1, li, rootIndex - 1)
+            q.append(leftSubTree)
+
+        if rootIndex + 1 <= ri:
+            rightSubTree = MyNode(myNode.height + 1, rootIndex + 1, ri)
+            q.append(rightSubTree)
+
+    return maxHeight
