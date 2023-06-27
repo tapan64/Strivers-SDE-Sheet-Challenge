@@ -1,0 +1,25 @@
+def dfs(node):
+    if not node:
+        return
+    leftData = rightData = 0
+    if node.left:
+        leftData = node.left.data
+    if node.right:
+        rightData = node.right.data
+    if node.data > leftData + rightData:
+        if node.left:
+            node.left.data = node.data
+        elif node.right:
+            node.right.data = node.data
+    dfs(node.left)
+    dfs(node.right)
+    total = 0
+    if node.left:
+        total += node.left.data
+    if node.right:
+        total += node.right.data
+    if node.left or node.right:
+        node.data = total
+    
+def changeTree(root): 
+    dfs(root)
