@@ -1,22 +1,17 @@
 def heightOfTheTree(inorder, levelOrder, N):
-    res = 0
-    que = deque()
-    if N >= 1:
-        myNode = MyNode(0, 0, N - 1)
-        que.append(myNode)
-    dct = {}
-    for i in range(N):
-        dct[inorder[i]] = i
-    for i in range(N):
-        myNode = que.popleft()
-        res = max(res, myNode.height)
-        leftInd = myNode.leftIndex
-        rightInd = myNode.rightIndex
-        ind = dct[levelOrder[i]]
-        if ind - 1 >= leftInd:
-            left = MyNode(myNode.height + 1, leftInd, ind - 1)
-            que.append(left)
-        if ind + 1 <= rightInd:
-            right = MyNode(myNode.height + 1, ind + 1, rightInd)
-            que.append(right)
-    return res
+	if N == 0:
+		return 0
+	res = 0
+	que = deque([(0, 0, N - 1)])
+	dct = {}
+	for i in range(N):
+		dct[inorder[i]] = i
+	for i in range(N):
+		height, leftInd, rightInd = que.popleft()
+		res = max(res, height)
+		ind = dct[levelOrder[i]]
+		if ind - 1 >= leftInd:
+			que.append((height + 1, leftInd, ind - 1))
+		if ind + 1 <= rightInd:
+			que.append((height + 1, ind + 1, rightInd))
+	return res
